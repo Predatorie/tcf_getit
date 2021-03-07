@@ -79,18 +79,7 @@ class Attributes {
         profileImageUrl: json["profile_image_url"] == null
             ? null
             : json["profile_image_url"],
-        lastLogin: DateTime.parse(json["last_login"]),
       );
-
-  Map<String, dynamic> toJson() => {
-        "created_at": createdAt.toIso8601String(),
-        "first_name": firstName,
-        "last_name": lastName,
-        "email": email,
-        "gender": gender,
-        "profile_image_url": profileImageUrl == null ? null : profileImageUrl,
-        "last_login": lastLogin.toIso8601String(),
-      };
 }
 
 class DatumLinks {
