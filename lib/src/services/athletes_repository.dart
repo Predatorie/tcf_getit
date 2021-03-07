@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tcf_getit/src/models/athletes.dart';
+import 'package:tcf_getit/src/models/athletes_dto.dart';
 import 'package:tcf_getit/src/services/api_service.dart';
 
 /// Manages athlete state
@@ -9,8 +9,8 @@ class AthletesRepository with ChangeNotifier {
   AthletesRepository({@required this.apiService});
 
   /// public property of all athletes
-  List<Athletes> _athletes = [];
-  List<Athletes> get athletes => _athletes;
+  List<AthleteAttributes> _athletes = [];
+  List<AthleteAttributes> get athletes => _athletes;
 
   /// public flag for progress indicator
   bool isBusy = false;
@@ -35,10 +35,19 @@ class AthletesRepository with ChangeNotifier {
       final athletes = athletesFromJson(json.bodyString);
 
       // setup for pagination
-      _setNextPageUrl(athletes);
+      _setNextPageUrl(athletes.links.next);
+
+      // map athletes dto to List<AthleteAttributes>
+      final a = athletes.data.map((e) => e.attributes).toList();
+
+      /// do we need the athlete id?
+      /*athletes.data.forEach((element) {
+        var id = element.id;
+        var list = element.attributes;
+      });*/
 
       // notify those listening
-      _athletes.add(athletes);
+      _athletes.addAll(a);
     } catch (e) {
       errorMessage = e.toString();
     } finally {
@@ -61,10 +70,13 @@ class AthletesRepository with ChangeNotifier {
         final athletes = athletesFromJson(json.bodyString);
 
         // setup for pagination
-        _setNextPageUrl(athletes);
+        _setNextPageUrl(athletes.links.next);
 
-        // notify those listening that we added to our list
-        _athletes.add(athletes);
+        // map athletes dto to List<AthleteAttributes>
+        final a = athletes.data.map((e) => e.attributes).toList();
+
+        // notify those listening
+        _athletes.addAll(a);
       }
     } catch (e) {
       errorMessage = e.toString();
@@ -75,15 +87,14 @@ class AthletesRepository with ChangeNotifier {
   }
 
   /// Sets up flag and value for pagination
-  _setNextPageUrl(Athletes athletes) {
+  _setNextPageUrl(String next) {
     /// set flag
-    hasNextPage =
-        athletes.links?.next != null && athletes.links.next.isNotEmpty;
+    hasNextPage = next != null && next.isNotEmpty;
 
     /// set url
     if (hasNextPage) {
       // get the full url and take right of the '?'
-      final link = athletes.links.next;
+      final link = next;
       final page = link.split('?');
 
       _nextPageUrl = page[1];

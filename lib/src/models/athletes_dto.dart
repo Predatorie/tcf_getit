@@ -4,19 +4,20 @@
 
 import 'dart:convert';
 
-Athletes athletesFromJson(String str) => Athletes.fromJson(json.decode(str));
+AthletesDto athletesFromJson(String str) =>
+    AthletesDto.fromJson(json.decode(str));
 
-class Athletes {
-  Athletes({
+class AthletesDto {
+  AthletesDto({
     this.data,
     this.links,
   });
 
-  Athletes copyWith({
+  AthletesDto copyWith({
     List<Datum> data,
     AthletesLinks links,
   }) =>
-      Athletes(
+      AthletesDto(
         data: data ?? this.data,
         links: links ?? this.links,
       );
@@ -24,7 +25,7 @@ class Athletes {
   List<Datum> data;
   AthletesLinks links;
 
-  factory Athletes.fromJson(Map<String, dynamic> json) => Athletes(
+  factory AthletesDto.fromJson(Map<String, dynamic> json) => AthletesDto(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
         links: AthletesLinks.fromJson(json["links"]),
       );
@@ -40,19 +41,19 @@ class Datum {
 
   String type;
   String id;
-  Attributes attributes;
+  AthleteAttributes attributes;
   DatumLinks links;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         type: json["type"],
         id: json["id"],
-        attributes: Attributes.fromJson(json["attributes"]),
+        attributes: AthleteAttributes.fromJson(json["attributes"]),
         links: DatumLinks.fromJson(json["links"]),
       );
 }
 
-class Attributes {
-  Attributes({
+class AthleteAttributes {
+  AthleteAttributes({
     this.createdAt,
     this.firstName,
     this.lastName,
@@ -70,7 +71,8 @@ class Attributes {
   String profileImageUrl;
   DateTime lastLogin;
 
-  factory Attributes.fromJson(Map<String, dynamic> json) => Attributes(
+  factory AthleteAttributes.fromJson(Map<String, dynamic> json) =>
+      AthleteAttributes(
         createdAt: DateTime.parse(json["created_at"]),
         firstName: json["first_name"],
         lastName: json["last_name"],
