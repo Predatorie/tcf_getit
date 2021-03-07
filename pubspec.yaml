@@ -24,3 +24,5 @@ dev_dependencies:
   json_serializable: null
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
