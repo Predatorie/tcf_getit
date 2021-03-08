@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/branding/branding.dart';
-import 'package:tcf_getit/src/locator/locator.dart';
+import 'package:tcf_getit/src/services/api_service.dart';
 import 'package:tcf_getit/src/services/athletes_repository.dart';
 import 'package:tcf_getit/src/views/athletes_page.dart';
 import 'package:tcf_getit/src/views/home_page.dart';
 
 void main() {
-  registerTypes();
+  // registerTypes();
 
   runApp(
     /// Providers are above [MyApp] instead of inside it, so that tests
@@ -15,7 +15,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (_) => serviceLocator<AthletesRepository>()),
+            create: (_) => AthletesRepository(apiService: ApiService.create())),
       ],
       child: MyApp(),
     ),
@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TCF',
       theme: ThemeData().copyWith(
-        primaryColor: tollandCrossFitBlue,
-      ),
+          primaryColor: tollandCrossFitBlue,
+          scaffoldBackgroundColor: Colors.white),
       routes: {
         '/': (context) => HomePage(),
         AthletesPage.routeName: (context) => AthletesPage()
