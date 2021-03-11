@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/branding/branding.dart';
 import 'package:tcf_getit/src/models/athletes_dto.dart';
-import 'package:tcf_getit/src/services/athletes_repository.dart';
+import 'package:tcf_getit/src/providers/athletes_provider.dart';
 
 class AthletesPage extends StatefulWidget {
   static const String routeName = '/athletes';
@@ -36,8 +37,8 @@ class _AthletesPageState extends State<AthletesPage> {
     final currentScroll = _scrollController.position.pixels;
 
     if (currentScroll >= maxScroll && !_scrollController.position.outOfRange) {
-      if (Provider.of<AthletesRepository>(context, listen: false).hasNextPage) {
-        await Provider.of<AthletesRepository>(context, listen: false)
+      if (Provider.of<AthletesService>(context, listen: false).hasNextPage) {
+        await Provider.of<AthletesService>(context, listen: false)
             .getNextAthletesAsync();
       }
     }
@@ -91,35 +92,53 @@ class _AthletesPageState extends State<AthletesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final repository = context.watch<AthletesRepository>();
+    final service = context.watch<AthletesService>();
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text('ATHLETES'),
-        ),
-        body: GridView(
-          padding: EdgeInsets.only(left: 10, right: 10),
-          controller: _scrollController,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: .9,
-              crossAxisSpacing: 2,
-              mainAxisSpacing: 2),
+        body: SafeArea(
+      child: Container(
+        child: Column(
           children: [
-            ...repository.athletes
-                .map(
-                  (athlete) => _athleteCard(athlete),
-                )
-                .toList(),
-            repository.isBusy
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : SizedBox(
-                    height: 1,
-                  )
+            Container(
+              child: Align(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+                  child: InkWell(
+                      child: Icon(FontAwesomeIcons.arrowLeft),
+                      onTap: () => Navigator.pop(context)),
+                ),
+                alignment: Alignment.centerLeft,
+              ),
+            ),
+            Expanded(
+              child: GridView(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                controller: _scrollController,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: .9,
+                    crossAxisSpacing: 2,
+                    mainAxisSpacing: 2),
+                children: [
+                  ...service.athletes
+                      .map(
+                        (athlete) => _athleteCard(athlete),
+                      )
+                      .toList(),
+                  service.isBusy
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : SizedBox(
+                          height: 1,
+                        )
+                ],
+              ),
+            ),
           ],
-        ));
+        ),
+      ),
+    ));
   }
 
   Widget _athleteCard(AthleteAttributes data) {

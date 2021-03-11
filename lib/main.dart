@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/branding/branding.dart';
+import 'package:tcf_getit/src/providers/athletes_provider.dart';
+import 'package:tcf_getit/src/providers/wod_provider.dart';
 import 'package:tcf_getit/src/services/api_service.dart';
-import 'package:tcf_getit/src/services/athletes_repository.dart';
 import 'package:tcf_getit/src/views/athletes_page.dart';
 import 'package:tcf_getit/src/views/home_page.dart';
+import 'package:tcf_getit/src/views/wod_page.dart';
 
 void main() {
-  // registerTypes();
-
+  // create our singleton api service;
+  final ApiService apiService = ApiService.create();
   runApp(
     /// Providers are above [MyApp] instead of inside it, so that tests
-    /// can use [MyApp] while mocking the providers
+    /// can use [MyApp] while mocking the src.providers
+
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (_) => AthletesRepository(apiService: ApiService.create())),
+            create: (_) => WodService(apiService: apiService)),
+        ChangeNotifierProvider(
+            create: (_) => AthletesService(apiService: apiService)),
       ],
       child: MyApp(),
     ),
@@ -32,7 +37,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white),
       routes: {
         '/': (context) => HomePage(),
-        AthletesPage.routeName: (context) => AthletesPage()
+        AthletesPage.routeName: (context) => AthletesPage(),
+        WodPage.routeName: (context) => WodPage()
       },
     );
   }

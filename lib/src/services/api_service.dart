@@ -1,3 +1,4 @@
+/// flutter packages pub run build_runner watch
 import 'package:chopper/chopper.dart';
 import 'package:tcf_getit/src/interceptors/header_interceptor.dart';
 
@@ -154,23 +155,24 @@ abstract class ApiService extends ChopperService {
   /// Default is "today". Note that "today" on our server in the UTC time zone
   /// may be different than what you intended.
   /// If no track_id is given, defaults to "all".
-  @Get(path: '?dates=date')
+  /// workouts?dates=20210310
+  @Get(path: '/workouts?dates={date}')
   Future<Response> getWorkoutsFilterByDate(
     @Query('date') int date,
   );
 
-  @Get(path: '?dates={fromDate}-{toDate}')
+  @Get(path: '/workouts?dates={fromDate}-{toDate}')
   Future<Response> getWorkoutsFilterByDateRange(
     @Path('fromDate') int fromDate,
     @Path('toDate') int toDate,
   );
 
-  @Get(path: '?track_id={trackId}')
+  @Get(path: '/workouts?track_id={trackId}')
   Future<Response> getWorkoutsFilterByTrack(
     @Path('trackId') String trackId,
   );
 
-  @Get(path: '?dates={fromDate}&track_id={trackId}')
+  @Get(path: '/workouts?dates={fromDate}&track_id={trackId}')
   Future<Response> getWorkoutsFilterByDateAndTrack(
     @Path('fromDate') int fromDate,
     @Path('trackId') String trackId,
@@ -180,7 +182,7 @@ abstract class ApiService extends ChopperService {
   /// Dates can be a singular date_int or a range separated with a hyphen (7 day limit).
   /// Default is "today". Note that "today" on our server in the UTC time zone
   /// may be different than what you intended. If no track_id is given, defaults to "all".
-  @Get(path: '?dates={fromDate}-{toDate}&track_id={trackId}')
+  @Get(path: '/workouts?dates={fromDate}-{toDate}&track_id={trackId}')
   Future<Response> getWorkoutsFilterByDateRangeAndTrack(
       @Path('fromDate') int fromDate,
       @Path('toDate') int toDate,

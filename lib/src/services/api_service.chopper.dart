@@ -135,34 +135,34 @@ class _$ApiService extends ApiService {
   }
 
   Future<Response> getWorkoutsFilterByDate(int date) {
-    final $url = '/v2/?dates=date';
+    final $url = '/v2/workouts?dates={date}';
     final Map<String, dynamic> $params = {'date': date};
     final $request = Request('GET', $url, client.baseUrl, parameters: $params);
     return client.send<dynamic, dynamic>($request);
   }
 
   Future<Response> getWorkoutsFilterByDateRange(int fromDate, int toDate) {
-    final $url = '/v2/?dates=${fromDate}-${toDate}';
+    final $url = '/v2/workouts?dates=${fromDate}-${toDate}';
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<dynamic, dynamic>($request);
   }
 
   Future<Response> getWorkoutsFilterByTrack(String trackId) {
-    final $url = '/v2/?track_id=${trackId}';
+    final $url = '/v2/workouts?track_id=${trackId}';
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<dynamic, dynamic>($request);
   }
 
   Future<Response> getWorkoutsFilterByDateAndTrack(
       int fromDate, String trackId) {
-    final $url = '/v2/?dates=${fromDate}&track_id=${trackId}';
+    final $url = '/v2/workouts?dates=${fromDate}&track_id=${trackId}';
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<dynamic, dynamic>($request);
   }
 
   Future<Response> getWorkoutsFilterByDateRangeAndTrack(
       int fromDate, int toDate, String trackId) {
-    final $url = '/v2/?dates=${fromDate}-${toDate}&track_id=${trackId}';
+    final $url = '/v2/workouts?dates=${fromDate}-${toDate}&track_id=${trackId}';
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<dynamic, dynamic>($request);
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tcf_getit/src/services/athletes_repository.dart';
+import 'package:tcf_getit/src/providers/athletes_provider.dart';
+import 'package:tcf_getit/src/providers/wod_provider.dart';
 import 'package:tcf_getit/src/views/athletes_page.dart';
+import 'package:tcf_getit/src/views/wod_page.dart';
 import 'package:tcf_getit/styles/styles.dart';
 
 class HomePage extends StatelessWidget {
@@ -33,53 +35,92 @@ class HomePage extends StatelessWidget {
                   crossAxisSpacing: 2,
                   padding: const EdgeInsets.all(8.0),
                   children: [
-                    menuCard(
-                        title: 'WOD',
-                        subtitle: 'Today\'s',
-                        func: () => print('wod')),
-                    menuCard(
+                    Consumer<WodService>(
+                      builder: (context, service, child) {
+                        return MenuCard(
+                            key: Key('wodKey'),
+                            title: 'WOD',
+                            subtitle: 'Today\'s',
+                            func: () async {
+                              /// ignore repeated presses
+                              if (!service.isBusy) {
+                                /// get the wod of the day
+                                await service.getWorkOutOfTheDayByDateAsync(
+                                    DateTime.now());
+
+                                /// check for any errors
+                                if (service.hasError) {
+                                  /// show a snack bar
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(service.errorMessage),
+                                  ));
+                                } else {
+                                  /// navigate to the wod page
+                                  await Navigator.pushNamed(
+                                      context, WodPage.routeName);
+                                }
+                              }
+                            });
+                      },
+                    ),
+                    MenuCard(
                         title: 'HEROES',
                         subtitle: 'Benchmark',
-                        func: () => print('heroes')),
-                    menuCard(
+                        func: () => print('todo: heroes lookup')),
+                    MenuCard(
                         title: 'GIRLS',
                         subtitle: 'Benchmark',
-                        func: () => print('girls')),
-                    menuCard(
+                        func: () => print('todo: girls lookup')),
+                    MenuCard(
                         title: 'GAMES',
                         subtitle: 'Benchmark',
                         func: () => print('games')),
-                    menuCard(
+                    MenuCard(
                         title: 'GYMNASTICS',
                         subtitle: 'Benchmark',
                         func: () => print('gymnastics')),
-                    menuCard(
+                    MenuCard(
                         title: 'NOTABLES',
                         subtitle: 'Benchmark',
                         func: () => print('notables')),
-                    menuCard(
+                    MenuCard(
                         title: 'BARBELLS',
                         subtitle: 'Benchmark',
                         func: () => print('barbells')),
-                    menuCard(
+                    MenuCard(
                         title: 'AFFILIATE',
                         subtitle: 'Information',
                         func: () => print('box')),
-                    menuCard(
-                        title: 'ATHLETES',
-                        subtitle: 'Information',
-                        func: () async {
-                          await Provider.of<AthletesRepository>(context,
-                                  listen: false)
-                              .getAthletesAsync();
+                    Consumer<AthletesService>(
+                      builder: (context, service, child) {
+                        return MenuCard(
+                            title: 'ATHLETES',
+                            subtitle: 'Information',
+                            func: () async {
+                              // ignore repeated presses
+                              if (!service.isBusy) {
+                                /// get the first page of athletes
+                                await service.getAthletesAsync();
 
-                          if (Provider.of<AthletesRepository>(context,
-                                  listen: false)
-                              .hasNextPage) {
-                            await Navigator.pushNamed(
-                                context, AthletesPage.routeName);
-                          }
-                        }),
+                                /// check for errors
+                                if (service.hasError) {
+                                  /// show a snack bar
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(service.errorMessage),
+                                  ));
+                                } else {
+                                  /// navigate to the athletes page
+                                  if (service.hasNextPage) {
+                                    await Navigator.pushNamed(
+                                        context, AthletesPage.routeName);
+                                  }
+                                }
+                              }
+                            });
+                      },
+                    ),
                   ],
                 ),
               ),
