@@ -106,9 +106,6 @@ abstract class ApiService extends ChopperService {
   /// Affiliates may also define their own "Gym Benchmarks" via the
   /// SugarWOD coach's website.
   ///
-  /// Returns a single Benchmark.
-  @Get(path: '/benchmarks')
-  Future<Response> getBenchmarks();
 
   /// Returns a single Benchmark.
   @Get(path: '/benchmark/{benchmarkId}')
@@ -117,10 +114,17 @@ abstract class ApiService extends ChopperService {
   );
 
   /// Returns a list of Benchmarks in the specified category.
-  @Get(path: '/benchmarks/category/{category}')
+  @Get(path: '/benchmarks/category/{category}?page[limit]=22')
   Future<Response> getBenchmarkByCategory(
     @Path('category') String category,
   );
+
+  /// Gets the next page of athletes
+  /// if next is not null or empty string path and pass in as:
+  /// "/category/heroes?page%5Bskip%5D=22"
+  @Get(path: '/benchmarks/category/{category}?{page}')
+  Future<Response> getNextBenchmarkByCategory(
+      @Path('category') String category, @Path('page') String page);
 
   /// A Movement is an element of a Workout or Benchmark such as "Box Jump",
   /// "Back Squat", or "Wall Ball".

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/src/providers/athletes_provider.dart';
+import 'package:tcf_getit/src/providers/heroes_service.dart';
 import 'package:tcf_getit/src/providers/wod_provider.dart';
 import 'package:tcf_getit/src/views/athletes_page.dart';
+import 'package:tcf_getit/src/views/heroes_page.dart';
 import 'package:tcf_getit/src/views/wod_page.dart';
 import 'package:tcf_getit/styles/styles.dart';
 
@@ -64,10 +66,34 @@ class HomePage extends StatelessWidget {
                             });
                       },
                     ),
-                    MenuCard(
-                        title: 'HEROES',
-                        subtitle: 'Benchmark',
-                        func: () => print('todo: heroes lookup')),
+                    Consumer<HeroesService>(
+                      builder: (context, service, child) {
+                        return MenuCard(
+                            key: Key('heroesKey'),
+                            title: 'HEROES',
+                            subtitle: 'Benchmark',
+                            func: () async {
+                              /// ignore repeated presses
+                              if (!service.isBusy) {
+                                /// get the wod of the day
+                                await service.getHeroesAsync();
+
+                                /// check for any errors
+                                if (service.hasError) {
+                                  /// show a snack bar
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(service.errorMessage),
+                                  ));
+                                } else {
+                                  /// navigate to the wod page
+                                  await Navigator.pushNamed(
+                                      context, HeroesPage.routeName);
+                                }
+                              }
+                            });
+                      },
+                    ),
                     MenuCard(
                         title: 'GIRLS',
                         subtitle: 'Benchmark',

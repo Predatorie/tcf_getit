@@ -86,12 +86,6 @@ class _$ApiService extends ApiService {
     return client.send<dynamic, dynamic>($request);
   }
 
-  Future<Response> getBenchmarks() {
-    final $url = '/v2/benchmarks';
-    final $request = Request('GET', $url, client.baseUrl);
-    return client.send<dynamic, dynamic>($request);
-  }
-
   Future<Response> getBenchmark(String benchmarkId) {
     final $url = '/v2/benchmark/${benchmarkId}';
     final $request = Request('GET', $url, client.baseUrl);
@@ -99,7 +93,13 @@ class _$ApiService extends ApiService {
   }
 
   Future<Response> getBenchmarkByCategory(String category) {
-    final $url = '/v2/benchmarks/category/${category}';
+    final $url = '/v2/benchmarks/category/${category}?page[limit]=22';
+    final $request = Request('GET', $url, client.baseUrl);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  Future<Response> getNextBenchmarkByCategory(String category, String page) {
+    final $url = '/v2/benchmarks/category/${category}?${page}';
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<dynamic, dynamic>($request);
   }
