@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/src/providers/athletes_provider.dart';
-import 'package:tcf_getit/src/providers/girls_service.dart';
-import 'package:tcf_getit/src/providers/heroes_service.dart';
+import 'package:tcf_getit/src/providers/barbell_service.dart';
+import 'package:tcf_getit/src/providers/benchmark_service.dart';
 import 'package:tcf_getit/src/providers/wod_provider.dart';
 import 'package:tcf_getit/src/views/athletes_page.dart';
-import 'package:tcf_getit/src/views/girls_page.dart';
-import 'package:tcf_getit/src/views/heroes_page.dart';
+import 'package:tcf_getit/src/views/barbells_page.dart';
+import 'package:tcf_getit/src/views/benchmark_page.dart';
 import 'package:tcf_getit/src/views/wod_page.dart';
 import 'package:tcf_getit/styles/styles.dart';
 
@@ -68,7 +68,7 @@ class HomePage extends StatelessWidget {
                             });
                       },
                     ),
-                    Consumer<HeroesService>(
+                    Consumer<BenchmarkService>(
                       builder: (context, service, child) {
                         return MenuCard(
                             key: Key('heroesKey'),
@@ -78,7 +78,8 @@ class HomePage extends StatelessWidget {
                               /// ignore repeated presses
                               if (!service.isBusy) {
                                 /// get the wod of the day
-                                await service.getHeroesAsync();
+                                await service
+                                    .getBenchmarkByCategoryAsync('heroes');
 
                                 /// check for any errors
                                 if (service.hasError) {
@@ -90,13 +91,13 @@ class HomePage extends StatelessWidget {
                                 } else {
                                   /// navigate to the wod page
                                   await Navigator.pushNamed(
-                                      context, HeroesPage.routeName);
+                                      context, BenchmarkPage.routeName);
                                 }
                               }
                             });
                       },
                     ),
-                    Consumer<GirlsService>(
+                    Consumer<BenchmarkService>(
                       builder: (context, service, child) {
                         return MenuCard(
                             key: Key('girlsKey'),
@@ -106,7 +107,8 @@ class HomePage extends StatelessWidget {
                               /// ignore repeated presses
                               if (!service.isBusy) {
                                 /// get the wod of the day
-                                await service.getGirlsAsync();
+                                await service
+                                    .getBenchmarkByCategoryAsync('girls');
 
                                 /// check for any errors
                                 if (service.hasError) {
@@ -118,28 +120,131 @@ class HomePage extends StatelessWidget {
                                 } else {
                                   /// navigate to the wod page
                                   await Navigator.pushNamed(
-                                      context, GirlsPage.routeName);
+                                      context, BenchmarkPage.routeName);
                                 }
                               }
                             });
                       },
                     ),
-                    MenuCard(
-                        title: 'GAMES',
-                        subtitle: 'Benchmark',
-                        func: () => print('games')),
-                    MenuCard(
-                        title: 'GYMNASTICS',
-                        subtitle: 'Benchmark',
-                        func: () => print('gymnastics')),
-                    MenuCard(
-                        title: 'NOTABLES',
-                        subtitle: 'Benchmark',
-                        func: () => print('notables')),
-                    MenuCard(
-                        title: 'BARBELLS',
-                        subtitle: 'Benchmark',
-                        func: () => print('barbells')),
+                    Consumer<BenchmarkService>(
+                      builder: (context, service, child) {
+                        return MenuCard(
+                            title: 'GAMES',
+                            subtitle: 'Benchmark',
+                            func: () async {
+                              // ignore repeated presses
+                              if (!service.isBusy) {
+                                /// get the first page of athletes
+                                await service
+                                    .getBenchmarkByCategoryAsync('games');
+
+                                /// check for errors
+                                if (service.hasError) {
+                                  /// show a snack bar
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(service.errorMessage),
+                                  ));
+                                } else {
+                                  /// navigate to the athletes page
+                                  if (service.hasNextPage) {
+                                    await Navigator.pushNamed(
+                                        context, BenchmarkPage.routeName);
+                                  }
+                                }
+                              }
+                            });
+                      },
+                    ),
+                    Consumer<BenchmarkService>(
+                      builder: (context, service, child) {
+                        return MenuCard(
+                            title: 'GYMNASTICS',
+                            subtitle: 'Benchmark',
+                            func: () async {
+                              // ignore repeated presses
+                              if (!service.isBusy) {
+                                /// get the first page of athletes
+                                await service
+                                    .getBenchmarkByCategoryAsync('gymnastics');
+
+                                /// check for errors
+                                if (service.hasError) {
+                                  /// show a snack bar
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(service.errorMessage),
+                                  ));
+                                } else {
+                                  /// navigate to the athletes page
+                                  if (service.hasNextPage) {
+                                    await Navigator.pushNamed(
+                                        context, BenchmarkPage.routeName);
+                                  }
+                                }
+                              }
+                            });
+                      },
+                    ),
+                    Consumer<BenchmarkService>(
+                      builder: (context, service, child) {
+                        return MenuCard(
+                            title: 'NOTABLES',
+                            subtitle: 'Benchmark',
+                            func: () async {
+                              // ignore repeated presses
+                              if (!service.isBusy) {
+                                /// get the first page of athletes
+                                await service
+                                    .getBenchmarkByCategoryAsync('notables');
+
+                                /// check for errors
+                                if (service.hasError) {
+                                  /// show a snack bar
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(service.errorMessage),
+                                  ));
+                                } else {
+                                  /// navigate to the athletes page
+                                  if (service.hasNextPage) {
+                                    await Navigator.pushNamed(
+                                        context, BenchmarkPage.routeName);
+                                  }
+                                }
+                              }
+                            });
+                      },
+                    ),
+                    Consumer<BarbellService>(
+                      builder: (context, service, child) {
+                        return MenuCard(
+                            title: 'BARBELLS',
+                            subtitle: 'Benchmark',
+                            func: () async {
+                              // ignore repeated presses
+                              if (!service.isBusy) {
+                                /// get the first page of athletes
+                                await service.getBarbellsAsync();
+
+                                /// check for errors
+                                if (service.hasError) {
+                                  /// show a snack bar
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(service.errorMessage),
+                                  ));
+                                } else {
+                                  /// navigate to the athletes page
+                                  if (service.hasNextPage) {
+                                    await Navigator.pushNamed(
+                                        context, BarbellsPage.routeName);
+                                  }
+                                }
+                              }
+                            });
+                      },
+                    ),
                     MenuCard(
                         title: 'AFFILIATE',
                         subtitle: 'Information',

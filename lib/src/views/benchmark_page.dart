@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/src/models/benchmarks_dto.dart';
-import 'package:tcf_getit/src/providers/heroes_service.dart';
+import 'package:tcf_getit/src/providers/benchmark_service.dart';
 import 'package:tcf_getit/styles/styles.dart';
 
-class HeroesPage extends StatefulWidget {
-  static const String routeName = '/heroes';
+class BenchmarkPage extends StatefulWidget {
+  static const String routeName = '/benchmark';
   @override
-  _HeroesPageState createState() => _HeroesPageState();
+  _BenchmarkPageState createState() => _BenchmarkPageState();
 }
 
-class _HeroesPageState extends State<HeroesPage> {
+class _BenchmarkPageState extends State<BenchmarkPage> {
   ScrollController _scrollController;
 
   @override
@@ -29,7 +29,7 @@ class _HeroesPageState extends State<HeroesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final service = context.watch<HeroesService>();
+    final service = context.watch<BenchmarkService>();
 
     return Scaffold(
         body: SafeArea(
@@ -47,18 +47,18 @@ class _HeroesPageState extends State<HeroesPage> {
                 alignment: Alignment.centerLeft,
               ),
             ),
-            _heroesCard(service.heroes),
+            _benchmarkCard(service.benchmark),
           ],
         ),
       ),
     ));
   }
 
-  Widget _heroesCard(List<Datum> benchmarks) {
+  Widget _benchmarkCard(List<Datum> data) {
     return Expanded(
       child: ListView.builder(
         controller: _scrollController,
-        itemCount: benchmarks.length,
+        itemCount: data.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -73,17 +73,17 @@ class _HeroesPageState extends State<HeroesPage> {
                   children: [
                     Center(
                         child: Text(
-                      benchmarks[index].attributes.name,
+                      data[index].attributes.name,
                       style: fontStyleCardTitle,
                     )),
                     verticalMarginSmall(),
                     Text(
-                      benchmarks[index].attributes.description,
+                      data[index].attributes.description,
                       style: fontStyleCardNormal,
                     ),
                     verticalMarginLarge(),
                     Text(
-                      "Score:  ${benchmarks[index].attributes.scoreType}",
+                      "Score:  ${data[index].attributes.scoreType}",
                       style: fontStyleCardMicro,
                     ),
                   ],
@@ -103,9 +103,9 @@ class _HeroesPageState extends State<HeroesPage> {
     final currentScroll = _scrollController.position.pixels;
 
     if (currentScroll >= maxScroll && !_scrollController.position.outOfRange) {
-      if (Provider.of<HeroesService>(context, listen: false).hasNextPage) {
-        await Provider.of<HeroesService>(context, listen: false)
-            .getNextHeroesAsync();
+      if (Provider.of<BenchmarkService>(context, listen: false).hasNextPage) {
+        await Provider.of<BenchmarkService>(context, listen: false)
+            .getNextBenchmarkByCategoryAsync();
       }
     }
   }

@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:tcf_getit/src/models/benchmarks_dto.dart';
 import 'package:tcf_getit/src/services/api_service.dart';
 
-class GirlsService with ChangeNotifier {
+class BenchmarkService with ChangeNotifier {
   /// backing field for the injected api service
   final ApiService apiService;
 
   /// private field for the next available page url
   String _nextPageUrl = '';
 
-  /// constructor
-  GirlsService({@required this.apiService});
+  /// private field for the category param
+  String _category = '';
 
-  /// gets or sets the property of all girls
-  List<Datum> _girls = [];
-  List<Datum> get girls => _girls;
+  /// constructor
+  BenchmarkService({@required this.apiService});
+
+  /// gets or sets the property of all games
+  List<Datum> _data = [];
+  List<Datum> get benchmark => _data;
 
   /// public property get for the errorMessage
   String errorMessage = '';
@@ -28,15 +31,17 @@ class GirlsService with ChangeNotifier {
   /// public property get for the hasNextPage
   bool hasNextPage = true;
 
-  /// gets initial list of girls limited to 22
-  Future<void> getGirlsAsync() async {
+  /// gets initial list of games limited to 22
+  Future<void> getBenchmarkByCategoryAsync(String category) async {
     try {
       this.isBusy = true;
 
-      // first time in so reset list if we are going back and forth
-      _girls?.clear();
+      _category = category;
 
-      final response = await apiService.getBenchmarkByCategory("girls");
+      // first time in so reset list if we are going back and forth
+      _data?.clear();
+
+      final response = await apiService.getBenchmarkByCategory(category);
       if (response.statusCode != 200) {
         this.errorMessage = response.error;
         this.hasError = true;
@@ -47,7 +52,7 @@ class GirlsService with ChangeNotifier {
         _setNextPageUrl(benchmarks.links.next);
 
         // notify those listening
-        _girls.addAll(benchmarks.data);
+        _data.addAll(benchmarks.data);
       }
     } catch (e) {
       this.errorMessage = e.toString();
@@ -58,14 +63,14 @@ class GirlsService with ChangeNotifier {
     }
   }
 
-  /// paging next 22 girls
-  Future<void> getNextGirlsAsync() async {
+  /// paging next 22
+  Future<void> getNextBenchmarkByCategoryAsync() async {
     try {
       this.isBusy = true;
 
       if (hasNextPage) {
-        final response =
-            await apiService.getNextBenchmarkByCategory("girls", _nextPageUrl);
+        final response = await apiService.getNextBenchmarkByCategory(
+            _category, _nextPageUrl);
         if (response.statusCode != 200) {
           this.errorMessage = response.error;
           this.hasError = true;
@@ -77,7 +82,7 @@ class GirlsService with ChangeNotifier {
           _setNextPageUrl(benchmarks.links.next);
 
           // notify those listening
-          _girls.addAll(benchmarks.data);
+          _data.addAll(benchmarks.data);
         }
       }
     } catch (e) {

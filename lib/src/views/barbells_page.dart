@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tcf_getit/src/models/benchmarks_dto.dart';
-import 'package:tcf_getit/src/providers/girls_service.dart';
+import 'package:tcf_getit/src/models/barbells_dto.dart';
+import 'package:tcf_getit/src/providers/barbell_service.dart';
 import 'package:tcf_getit/styles/styles.dart';
 
-class GirlsPage extends StatefulWidget {
-  static const String routeName = '/girls';
+class BarbellsPage extends StatefulWidget {
+  static const String routeName = '/barbells';
   @override
-  _GirlsPageState createState() => _GirlsPageState();
+  _BarbellsPageState createState() => _BarbellsPageState();
 }
 
-class _GirlsPageState extends State<GirlsPage> {
+class _BarbellsPageState extends State<BarbellsPage> {
   ScrollController _scrollController;
 
   @override
@@ -29,7 +29,7 @@ class _GirlsPageState extends State<GirlsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final service = context.watch<GirlsService>();
+    final service = context.watch<BarbellService>();
 
     return Scaffold(
         body: SafeArea(
@@ -47,18 +47,18 @@ class _GirlsPageState extends State<GirlsPage> {
                 alignment: Alignment.centerLeft,
               ),
             ),
-            _heroesCard(service.girls),
+            _benchmarkCard(service.barbell),
           ],
         ),
       ),
     ));
   }
 
-  Widget _heroesCard(List<Datum> benchmarks) {
+  Widget _benchmarkCard(List<Datum> data) {
     return Expanded(
       child: ListView.builder(
         controller: _scrollController,
-        itemCount: benchmarks.length,
+        itemCount: data.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -73,18 +73,13 @@ class _GirlsPageState extends State<GirlsPage> {
                   children: [
                     Center(
                         child: Text(
-                      benchmarks[index].attributes.name,
+                      data[index].attributes.name,
                       style: fontStyleCardTitle,
                     )),
-                    verticalMarginSmall(),
-                    Text(
-                      benchmarks[index].attributes.description,
-                      style: fontStyleCardNormal,
-                    ),
                     verticalMarginLarge(),
                     Text(
-                      "Score:  ${benchmarks[index].attributes.scoreType}",
-                      style: fontStyleCardMicro,
+                      "Category: ${data[index].attributes.category}",
+                      style: fontStyleCardNormal,
                     ),
                   ],
                 ),
@@ -103,9 +98,9 @@ class _GirlsPageState extends State<GirlsPage> {
     final currentScroll = _scrollController.position.pixels;
 
     if (currentScroll >= maxScroll && !_scrollController.position.outOfRange) {
-      if (Provider.of<GirlsService>(context, listen: false).hasNextPage) {
-        await Provider.of<GirlsService>(context, listen: false)
-            .getNextGirlsAsync();
+      if (Provider.of<BarbellService>(context, listen: false).hasNextPage) {
+        await Provider.of<BarbellService>(context, listen: false)
+            .getNextBarbellsAsync();
       }
     }
   }

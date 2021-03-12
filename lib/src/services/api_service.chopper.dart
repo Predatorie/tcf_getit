@@ -69,7 +69,13 @@ class _$ApiService extends ApiService {
   }
 
   Future<Response> getBarbellLifts() {
-    final $url = '/v2/barbelllifts';
+    final $url = '/v2/barbelllifts?page[limit]=22';
+    final $request = Request('GET', $url, client.baseUrl);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  Future<Response> getNextBarbellLifts(String page) {
+    final $url = '/v2/barbelllifts?${page}';
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<dynamic, dynamic>($request);
   }

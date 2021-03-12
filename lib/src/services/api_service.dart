@@ -84,8 +84,11 @@ abstract class ApiService extends ChopperService {
   /// A Barbell Lift is a workout template which may be scheduled on an
   /// Affiliate's workout calendar, or logged directly by an
   /// Athlete in their Personal Logbook.
-  @Get(path: '/barbelllifts')
+  @Get(path: '/barbelllifts?page[limit]=22')
   Future<Response> getBarbellLifts();
+
+  @Get(path: '/barbelllifts?{page}')
+  Future<Response> getNextBarbellLifts(@Path('page') String page);
 
   ///Returns a list of Barbell Lifts in the specified category.
   @Get(path: '/barbelllifts/{category}')
