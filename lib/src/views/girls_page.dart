@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/src/models/benchmarks_dto.dart';
-import 'package:tcf_getit/src/providers/heroes_service.dart';
+import 'package:tcf_getit/src/providers/girls_service.dart';
 import 'package:tcf_getit/styles/styles.dart';
 
-class HeroesPage extends StatefulWidget {
-  static const String routeName = '/heroes';
+class GirlsPage extends StatefulWidget {
+  static const String routeName = '/girls';
   @override
-  _HeroesPageState createState() => _HeroesPageState();
+  _GirlsPageState createState() => _GirlsPageState();
 }
 
-class _HeroesPageState extends State<HeroesPage> {
+class _GirlsPageState extends State<GirlsPage> {
   ScrollController _scrollController;
 
   @override
@@ -29,7 +29,7 @@ class _HeroesPageState extends State<HeroesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final service = context.watch<HeroesService>();
+    final service = context.watch<GirlsService>();
 
     return Scaffold(
         body: SafeArea(
@@ -47,7 +47,7 @@ class _HeroesPageState extends State<HeroesPage> {
                 alignment: Alignment.centerLeft,
               ),
             ),
-            _heroesCard(service.heroes),
+            _heroesCard(service.girls),
           ],
         ),
       ),
@@ -103,9 +103,9 @@ class _HeroesPageState extends State<HeroesPage> {
     final currentScroll = _scrollController.position.pixels;
 
     if (currentScroll >= maxScroll && !_scrollController.position.outOfRange) {
-      if (Provider.of<HeroesService>(context, listen: false).hasNextPage) {
-        await Provider.of<HeroesService>(context, listen: false)
-            .getNextHeroesAsync();
+      if (Provider.of<GirlsService>(context, listen: false).hasNextPage) {
+        await Provider.of<GirlsService>(context, listen: false)
+            .getNextGirlsAsync();
       }
     }
   }

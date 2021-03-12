@@ -44,52 +44,6 @@ class _AthletesPageState extends State<AthletesPage> {
     }
   }
 
-/*  @override
-  Widget build(BuildContext context) {
-    final repository = context.watch<AthletesRepository>();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ATHLETES'),
-      ),
-      body: ListView.builder(
-          controller: _scrollController,
-          shrinkWrap: true,
-          itemCount: repository.athletes.length,
-          itemBuilder: (_, i) {
-            return _athleteCard(repository.athletes[i]);
-          }),
-    );
-  }*/
-
-/*  @override
-  Widget build(BuildContext context) {
-    final repository = context.watch<AthletesRepository>();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ATHLETES'),
-      ),
-      body: ListView(
-        controller: _scrollController,
-        children: [
-          ...repository.athletes
-              .map(
-                (athlete) => _athleteCard(athlete),
-              )
-              .toList(),
-          repository.isBusy
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : SizedBox(
-                  height: 1,
-                )
-        ],
-      ),
-    );
-  }*/
-
   @override
   Widget build(BuildContext context) {
     final service = context.watch<AthletesService>();

@@ -2,6 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:tcf_getit/branding/branding.dart';
 import 'package:tcf_getit/src/models/wods_dto.dart';
 
+const fontStyleMenuTitle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'NotoSans-Bold',
+    color: tollandCrossFitBlue);
+
+const fontStyleMenuSubtitle = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    fontFamily: 'NotoSans-Regular',
+    color: tollandCrossFitGrey);
+
+const fontStyleCardTitle = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'NotoSans-Bold',
+    color: tollandCrossFitBlue);
+
+const fontStyleCardNormal = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.normal,
+  fontFamily: 'NotoSans-Regular',
+);
+
+const fontStyleCardMicro = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.normal,
+  fontFamily: 'NotoSans-Light',
+);
+
 Widget verticalMarginSmall() => SizedBox(
       height: 2,
     );
@@ -54,17 +84,11 @@ class MenuCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
-                color: tollandCrossFitBlue,
-                fontWeight: FontWeight.bold,
-              ),
+              style: fontStyleMenuTitle,
             ),
             Text(
               subtitle,
-              style: TextStyle(
-                  color: tollandCrossFitGrey,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 12),
+              style: fontStyleMenuSubtitle,
             ),
           ],
         )),

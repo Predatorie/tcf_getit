@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/branding/branding.dart';
 import 'package:tcf_getit/src/providers/athletes_provider.dart';
+import 'package:tcf_getit/src/providers/girls_service.dart';
 import 'package:tcf_getit/src/providers/heroes_service.dart';
 import 'package:tcf_getit/src/providers/wod_provider.dart';
 import 'package:tcf_getit/src/services/api_service.dart';
 import 'package:tcf_getit/src/views/athletes_page.dart';
+import 'package:tcf_getit/src/views/girls_page.dart';
 import 'package:tcf_getit/src/views/heroes_page.dart';
 import 'package:tcf_getit/src/views/home_page.dart';
 import 'package:tcf_getit/src/views/wod_page.dart';
@@ -25,6 +27,8 @@ void main() {
             create: (_) => AthletesService(apiService: apiService)),
         ChangeNotifierProvider(
             create: (_) => HeroesService(apiService: apiService)),
+        ChangeNotifierProvider(
+            create: (_) => GirlsService(apiService: apiService)),
       ],
       child: MyApp(),
     ),
@@ -44,6 +48,7 @@ class MyApp extends StatelessWidget {
         AthletesPage.routeName: (context) => AthletesPage(),
         WodPage.routeName: (context) => WodPage(),
         HeroesPage.routeName: (context) => HeroesPage(),
+        GirlsPage.routeName: (context) => GirlsPage(),
       },
     );
   }
