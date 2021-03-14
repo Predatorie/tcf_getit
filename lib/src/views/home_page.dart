@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:tcf_getit/src/providers/affiliate_service.dart';
 import 'package:tcf_getit/src/providers/athletes_provider.dart';
 import 'package:tcf_getit/src/providers/barbell_service.dart';
 import 'package:tcf_getit/src/providers/benchmark_service.dart';
 import 'package:tcf_getit/src/providers/wod_provider.dart';
+import 'package:tcf_getit/src/views/affiliate_page.dart';
 import 'package:tcf_getit/src/views/athletes_page.dart';
 import 'package:tcf_getit/src/views/barbells_page.dart';
 import 'package:tcf_getit/src/views/benchmark_page.dart';
@@ -216,11 +218,36 @@ class HomePage extends StatelessWidget {
                             });
                       },
                     ),
+                    Consumer<AffiliateService>(
+                      builder: (context, service, child) {
+                        return MenuCard(
+                            title: 'BOX',
+                            subtitle: 'Information',
+                            func: () async {
+                              // ignore repeated presses
+                              if (!service.isBusy) {
+                                await service.getAffiliateAsync();
+
+                                /// check for errors
+                                if (service.hasError) {
+                                  /// show a snack bar
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(service.errorMessage),
+                                  ));
+                                } else {
+                                  await Navigator.pushNamed(
+                                      context, AffiliatePage.routeName);
+                                }
+                              }
+                            });
+                      },
+                    ),
                     Consumer<BarbellService>(
                       builder: (context, service, child) {
                         return MenuCard(
                             title: 'BARBELLS',
-                            subtitle: 'Benchmark',
+                            subtitle: 'Information',
                             func: () async {
                               // ignore repeated presses
                               if (!service.isBusy) {
@@ -245,10 +272,6 @@ class HomePage extends StatelessWidget {
                             });
                       },
                     ),
-                    MenuCard(
-                        title: 'AFFILIATE',
-                        subtitle: 'Information',
-                        func: () => print('box')),
                     Consumer<AthletesService>(
                       builder: (context, service, child) {
                         return MenuCard(

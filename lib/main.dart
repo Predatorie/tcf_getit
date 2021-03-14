@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/branding/branding.dart';
+import 'package:tcf_getit/src/providers/affiliate_service.dart';
 import 'package:tcf_getit/src/providers/athletes_provider.dart';
 import 'package:tcf_getit/src/providers/barbell_service.dart';
 import 'package:tcf_getit/src/providers/benchmark_service.dart';
 import 'package:tcf_getit/src/providers/wod_provider.dart';
 import 'package:tcf_getit/src/services/api_service.dart';
+import 'package:tcf_getit/src/views/affiliate_page.dart';
 import 'package:tcf_getit/src/views/athletes_page.dart';
 import 'package:tcf_getit/src/views/barbells_page.dart';
 import 'package:tcf_getit/src/views/benchmark_page.dart';
@@ -29,6 +31,8 @@ void main() {
             create: (_) => BenchmarkService(apiService: apiService)),
         ChangeNotifierProvider(
             create: (_) => BarbellService(apiService: apiService)),
+        ChangeNotifierProvider(
+            create: (_) => AffiliateService(apiService: apiService)),
       ],
       child: MyApp(),
     ),
@@ -49,6 +53,7 @@ class MyApp extends StatelessWidget {
         WodPage.routeName: (context) => WodPage(),
         BenchmarkPage.routeName: (context) => BenchmarkPage(),
         BarbellsPage.routeName: (context) => BarbellsPage(),
+        AffiliatePage.routeName: (context) => AffiliatePage(),
       },
     );
   }
