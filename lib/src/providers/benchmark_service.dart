@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tcf_getit/src/models/benchmarks_dto.dart';
 import 'package:tcf_getit/src/services/api_service.dart';
 
-class BenchmarkService with ChangeNotifier {
+class BenchmarkService extends ChangeNotifier {
   /// backing field for the injected api service
   final ApiService apiService;
 

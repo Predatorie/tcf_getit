@@ -44,6 +44,10 @@ Widget verticalMarginLarge() => SizedBox(
       height: 6,
     );
 
+Widget verticalMarginExtraLarge() => SizedBox(
+      height: 10,
+    );
+
 class WorkoutOfTheDayCard extends StatelessWidget {
   @required
   final List<Datum> data;

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tcf_getit/src/models/box_dto.dart';
 import 'package:tcf_getit/src/services/api_service.dart';
 
-class AffiliateService with ChangeNotifier {
+class AffiliateService extends ChangeNotifier {
   /// backing field for the injected api service
   final ApiService apiService;
 

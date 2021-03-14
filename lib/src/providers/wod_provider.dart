@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:tcf_getit/src/models/wods_dto.dart';
 import 'package:tcf_getit/src/services/api_service.dart';
 
-class WodService with ChangeNotifier {
+class WodService extends ChangeNotifier {
   /// backing field for the injected api service
   final ApiService apiService;
 

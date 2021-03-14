@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tcf_getit/src/models/barbells_dto.dart';
 import 'package:tcf_getit/src/services/api_service.dart';
 
-class BarbellService with ChangeNotifier {
+class BarbellService extends ChangeNotifier {
   /// backing field for the injected api service
   final ApiService apiService;
 

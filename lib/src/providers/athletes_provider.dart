@@ -3,7 +3,7 @@ import 'package:tcf_getit/src/models/athletes_dto.dart';
 import 'package:tcf_getit/src/services/api_service.dart';
 
 /// Manages athlete state
-class AthletesService with ChangeNotifier {
+class AthletesService extends ChangeNotifier {
   /// backing field for the injected api service
   final ApiService apiService;
 
