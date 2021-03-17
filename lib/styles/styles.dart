@@ -32,6 +32,10 @@ const fontStyleCardMicro = TextStyle(
   fontFamily: 'NotoSans-Light',
 );
 
+const double menuCardHeight = 80;
+
+const double menuCardWidth = 120;
+
 Widget verticalMarginSmall() => SizedBox(
       height: 2,
     );
@@ -50,7 +54,7 @@ Widget verticalMarginExtraLarge() => SizedBox(
 
 class WorkoutOfTheDayCard extends StatelessWidget {
   @required
-  final List<Datum> data;
+  final List<WodDatum> data;
   final Function func;
 
   const WorkoutOfTheDayCard({Key key, this.data, this.func}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tcf_getit/src/providers/wod_provider.dart';
+import 'package:tcf_getit/src/providers/wod_notifier.dart';
 import 'package:tcf_getit/styles/styles.dart';
 
 class WodPage extends StatelessWidget {
@@ -10,7 +10,7 @@ class WodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Consumer<WodService>(builder: (context, service, child) {
+        child: Consumer<WodNotifier>(builder: (context, service, child) {
           return Container(
               child: Column(
             children: [

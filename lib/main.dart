@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/branding/branding.dart';
-import 'package:tcf_getit/src/providers/affiliate_service.dart';
-import 'package:tcf_getit/src/providers/athletes_provider.dart';
-import 'package:tcf_getit/src/providers/barbell_service.dart';
-import 'package:tcf_getit/src/providers/benchmark_service.dart';
-import 'package:tcf_getit/src/providers/wod_provider.dart';
+import 'package:tcf_getit/src/providers/affiliate_notifier.dart';
+import 'package:tcf_getit/src/providers/athletes_notifier.dart';
+import 'package:tcf_getit/src/providers/barbell_notifier.dart';
+import 'package:tcf_getit/src/providers/benchmark_notifier.dart';
+import 'package:tcf_getit/src/providers/wod_notifier.dart';
 import 'package:tcf_getit/src/services/api_service.dart';
+import 'package:tcf_getit/src/services/sugarwod_service.dart';
 import 'package:tcf_getit/src/views/affiliate_page.dart';
 import 'package:tcf_getit/src/views/athletes_page.dart';
 import 'package:tcf_getit/src/views/barbells_page.dart';
@@ -16,23 +17,23 @@ import 'package:tcf_getit/src/views/wod_page.dart';
 
 void main() {
   // create our singleton api service;
-  final ApiService apiService = ApiService.create();
+  final SugarWodService sugarWod =
+      SugarWodService(apiService: ApiService.create());
   runApp(
     /// Providers are above [MyApp] instead of inside it, so that tests
     /// can use [MyApp] while mocking the src.providers
 
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => WodNotifier(sugarWod: sugarWod)),
         ChangeNotifierProvider(
-            create: (_) => WodService(apiService: apiService)),
+            create: (_) => AthletesNotifier(sugarWod: sugarWod)),
         ChangeNotifierProvider(
-            create: (_) => AthletesService(apiService: apiService)),
+            create: (_) => BarbellNotifier(sugarWod: sugarWod)),
         ChangeNotifierProvider(
-            create: (_) => BenchmarkService(apiService: apiService)),
+            create: (_) => AffiliateNotifier(sugarWod: sugarWod)),
         ChangeNotifierProvider(
-            create: (_) => BarbellService(apiService: apiService)),
-        ChangeNotifierProvider(
-            create: (_) => AffiliateService(apiService: apiService)),
+            create: (_) => BenchmarkNotifier(sugarWod: sugarWod)),
       ],
       child: MyApp(),
     ),

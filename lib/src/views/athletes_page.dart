@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/branding/branding.dart';
 import 'package:tcf_getit/src/models/athletes_dto.dart';
-import 'package:tcf_getit/src/providers/athletes_provider.dart';
+import 'package:tcf_getit/src/providers/athletes_notifier.dart';
 
 class AthletesPage extends StatefulWidget {
   static const String routeName = '/athletes';
@@ -37,8 +37,8 @@ class _AthletesPageState extends State<AthletesPage> {
     final currentScroll = _scrollController.position.pixels;
 
     if (currentScroll >= maxScroll && !_scrollController.position.outOfRange) {
-      if (Provider.of<AthletesService>(context, listen: false).hasNextPage) {
-        await Provider.of<AthletesService>(context, listen: false)
+      if (Provider.of<AthletesNotifier>(context, listen: false).hasNextPage) {
+        await Provider.of<AthletesNotifier>(context, listen: false)
             .getNextAthletesAsync();
       }
     }
@@ -46,7 +46,7 @@ class _AthletesPageState extends State<AthletesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final service = context.watch<AthletesService>();
+    final service = context.watch<AthletesNotifier>();
 
     return Scaffold(
         body: SafeArea(

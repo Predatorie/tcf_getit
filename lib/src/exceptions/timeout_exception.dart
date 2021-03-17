@@ -1,0 +1,1 @@
+class NetworkTimeOutException implements Exception {}

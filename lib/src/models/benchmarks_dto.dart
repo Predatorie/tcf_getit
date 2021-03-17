@@ -16,7 +16,7 @@ class Benchmarks {
   });
 
   Benchmarks copyWith({
-    List<Datum> data,
+    List<BenchmarksDatum> data,
     BenchmarksLinks links,
   }) =>
       Benchmarks(
@@ -24,11 +24,12 @@ class Benchmarks {
         links: links ?? this.links,
       );
 
-  List<Datum> data;
+  List<BenchmarksDatum> data;
   BenchmarksLinks links;
 
   factory Benchmarks.fromJson(Map<String, dynamic> json) => Benchmarks(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<BenchmarksDatum>.from(
+            json["data"].map((x) => BenchmarksDatum.fromJson(x))),
         links: BenchmarksLinks.fromJson(json["links"]),
       );
 
@@ -38,8 +39,8 @@ class Benchmarks {
       };
 }
 
-class Datum {
-  Datum({
+class BenchmarksDatum {
+  BenchmarksDatum({
     this.type,
     this.id,
     this.attributes,
@@ -51,7 +52,8 @@ class Datum {
   Attributes attributes;
   DatumLinks links;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory BenchmarksDatum.fromJson(Map<String, dynamic> json) =>
+      BenchmarksDatum(
         type: json["type"],
         id: json["id"],
         attributes: Attributes.fromJson(json["attributes"]),

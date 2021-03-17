@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/src/models/benchmarks_dto.dart';
-import 'package:tcf_getit/src/providers/benchmark_service.dart';
+import 'package:tcf_getit/src/providers/benchmark_notifier.dart';
 import 'package:tcf_getit/styles/styles.dart';
 
 class BenchmarkPage extends StatefulWidget {
@@ -29,7 +29,7 @@ class _BenchmarkPageState extends State<BenchmarkPage> {
 
   @override
   Widget build(BuildContext context) {
-    final service = context.watch<BenchmarkService>();
+    final service = context.watch<BenchmarkNotifier>();
 
     return Scaffold(
         body: SafeArea(
@@ -47,14 +47,14 @@ class _BenchmarkPageState extends State<BenchmarkPage> {
                 alignment: Alignment.centerLeft,
               ),
             ),
-            _benchmarkCard(service.benchmark),
+            _benchmarkCard(service.benchmarks),
           ],
         ),
       ),
     ));
   }
 
-  Widget _benchmarkCard(List<Datum> data) {
+  Widget _benchmarkCard(List<BenchmarksDatum> data) {
     return Expanded(
       child: ListView.builder(
         controller: _scrollController,
@@ -103,8 +103,8 @@ class _BenchmarkPageState extends State<BenchmarkPage> {
     final currentScroll = _scrollController.position.pixels;
 
     if (currentScroll >= maxScroll && !_scrollController.position.outOfRange) {
-      if (Provider.of<BenchmarkService>(context, listen: false).hasNextPage) {
-        await Provider.of<BenchmarkService>(context, listen: false)
+      if (Provider.of<BenchmarkNotifier>(context, listen: false).hasNextPage) {
+        await Provider.of<BenchmarkNotifier>(context, listen: false)
             .getNextBenchmarkByCategoryAsync();
       }
     }

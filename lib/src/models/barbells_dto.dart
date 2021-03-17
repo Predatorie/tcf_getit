@@ -16,7 +16,7 @@ class BarbellLifts {
   });
 
   BarbellLifts copyWith({
-    List<Datum> data,
+    List<BarbellsDatum> data,
     BarbellLiftsLinks links,
   }) =>
       BarbellLifts(
@@ -24,11 +24,12 @@ class BarbellLifts {
         links: links ?? this.links,
       );
 
-  List<Datum> data;
+  List<BarbellsDatum> data;
   BarbellLiftsLinks links;
 
   factory BarbellLifts.fromJson(Map<String, dynamic> json) => BarbellLifts(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<BarbellsDatum>.from(
+            json["data"].map((x) => BarbellsDatum.fromJson(x))),
         links: BarbellLiftsLinks.fromJson(json["links"]),
       );
 
@@ -38,8 +39,8 @@ class BarbellLifts {
       };
 }
 
-class Datum {
-  Datum({
+class BarbellsDatum {
+  BarbellsDatum({
     this.type,
     this.id,
     this.attributes,
@@ -51,7 +52,7 @@ class Datum {
   Attributes attributes;
   DatumLinks links;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory BarbellsDatum.fromJson(Map<String, dynamic> json) => BarbellsDatum(
         type: json["type"],
         id: json["id"],
         attributes: Attributes.fromJson(json["attributes"]),

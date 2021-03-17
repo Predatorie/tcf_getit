@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tcf_getit/src/models/barbells_dto.dart';
-import 'package:tcf_getit/src/providers/barbell_service.dart';
+import 'package:tcf_getit/src/providers/barbell_notifier.dart';
 import 'package:tcf_getit/styles/styles.dart';
 
 class BarbellsPage extends StatefulWidget {
@@ -29,7 +29,7 @@ class _BarbellsPageState extends State<BarbellsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final service = context.watch<BarbellService>();
+    final service = context.watch<BarbellNotifier>();
 
     return Scaffold(
         body: SafeArea(
@@ -54,7 +54,7 @@ class _BarbellsPageState extends State<BarbellsPage> {
     ));
   }
 
-  Widget _benchmarkCard(List<Datum> data) {
+  Widget _benchmarkCard(List<BarbellsDatum> data) {
     return Expanded(
       child: ListView.builder(
         controller: _scrollController,
@@ -98,8 +98,8 @@ class _BarbellsPageState extends State<BarbellsPage> {
     final currentScroll = _scrollController.position.pixels;
 
     if (currentScroll >= maxScroll && !_scrollController.position.outOfRange) {
-      if (Provider.of<BarbellService>(context, listen: false).hasNextPage) {
-        await Provider.of<BarbellService>(context, listen: false)
+      if (Provider.of<BarbellNotifier>(context, listen: false).hasNextPage) {
+        await Provider.of<BarbellNotifier>(context, listen: false)
             .getNextBarbellsAsync();
       }
     }

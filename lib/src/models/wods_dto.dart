@@ -16,7 +16,7 @@ class WorkoutsDto {
   });
 
   WorkoutsDto copyWith({
-    List<Datum> data,
+    List<WodDatum> data,
     WorkoutsLinks links,
   }) =>
       WorkoutsDto(
@@ -24,11 +24,12 @@ class WorkoutsDto {
         links: links ?? this.links,
       );
 
-  List<Datum> data;
+  List<WodDatum> data;
   WorkoutsLinks links;
 
   factory WorkoutsDto.fromJson(Map<String, dynamic> json) => WorkoutsDto(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data:
+            List<WodDatum>.from(json["data"].map((x) => WodDatum.fromJson(x))),
         links: WorkoutsLinks.fromJson(json["links"]),
       );
 
@@ -38,8 +39,8 @@ class WorkoutsDto {
       };
 }
 
-class Datum {
-  Datum({
+class WodDatum {
+  WodDatum({
     this.type,
     this.id,
     this.attributes,
@@ -51,7 +52,7 @@ class Datum {
   Attributes attributes;
   DatumLinks links;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory WodDatum.fromJson(Map<String, dynamic> json) => WodDatum(
         type: json["type"],
         id: json["id"],
         attributes: Attributes.fromJson(json["attributes"]),

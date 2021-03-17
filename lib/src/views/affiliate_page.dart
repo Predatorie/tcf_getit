@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tcf_getit/src/providers/affiliate_service.dart';
+import 'package:tcf_getit/src/providers/affiliate_notifier.dart';
 import 'package:tcf_getit/styles/styles.dart';
 
 class AffiliatePage extends StatelessWidget {
@@ -10,7 +10,7 @@ class AffiliatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Consumer<AffiliateService>(builder: (context, service, child) {
+        child: Consumer<AffiliateNotifier>(builder: (context, service, child) {
           return Container(
               child: Column(
             children: [
