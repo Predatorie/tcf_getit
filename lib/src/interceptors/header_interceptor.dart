@@ -7,7 +7,7 @@ class HeaderInterceptor implements RequestInterceptor {
   @override
   FutureOr<Request> onRequest(Request request) async {
     Request newRequest = request.copyWith(headers: {
-      'Authorization': Keys.Key,
+      'Authorization': Keys.key,
       'Content-Type': 'application/json'
     });
     return newRequest;
