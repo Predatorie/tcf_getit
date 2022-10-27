@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tcf_getit/src/models/barbells_dto.dart';
-import 'package:tcf_getit/src/providers/barbell_notifier.dart';
-import 'package:tcf_getit/styles/styles.dart';
+
+import '../../styles/styles.dart';
+import '../models/barbells_dto.dart';
+import '../providers/barbell_notifier.dart';
 
 class BarbellsPage extends StatefulWidget {
   static const String routeName = '/barbells';
+
+  const BarbellsPage({required Key key}) : super(key: key);
   @override
   _BarbellsPageState createState() => _BarbellsPageState();
 }
 
 class _BarbellsPageState extends State<BarbellsPage> {
-  ScrollController _scrollController;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
-    _scrollController ??= ScrollController();
+    _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
   }
 
@@ -41,7 +44,7 @@ class _BarbellsPageState extends State<BarbellsPage> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
                   child: InkWell(
-                      child: Icon(FontAwesomeIcons.arrowLeft),
+                      child: const Icon(FontAwesomeIcons.arrowLeft),
                       onTap: () => Navigator.pop(context)),
                 ),
                 alignment: Alignment.centerLeft,
@@ -78,7 +81,7 @@ class _BarbellsPageState extends State<BarbellsPage> {
                     )),
                     verticalMarginLarge(),
                     Text(
-                      "Category: ${data[index].attributes.category}",
+                      'Category: ${data[index].attributes.category}',
                       style: fontStyleCardNormal,
                     ),
                   ],

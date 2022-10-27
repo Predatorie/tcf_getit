@@ -1,25 +1,25 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tcf_getit/src/exceptions/timeout_exception.dart';
-import 'package:tcf_getit/src/models/athletes_dto.dart';
-import 'package:tcf_getit/src/models/barbells_dto.dart';
-import 'package:tcf_getit/src/models/benchmarks_dto.dart';
-import 'package:tcf_getit/src/models/box_dto.dart';
-import 'package:tcf_getit/src/models/wods_dto.dart';
-import 'package:tcf_getit/src/services/api_service.dart';
+
+import '../exceptions/timeout_exception.dart';
+import '../models/athletes_dto.dart';
+import '../models/barbells_dto.dart';
+import '../models/benchmarks_dto.dart';
+import '../models/box_dto.dart';
+import '../models/wods_dto.dart';
+import 'api_service.dart';
 
 class SugarWodService {
   /// backing field for the injected api service
   final ApiService apiService;
 
-  SugarWodService({@required this.apiService});
+  SugarWodService({required this.apiService});
 
   /// gets the box information
-  Future<Data> getAffiliateAsync() async {
+  Future<Data?> getAffiliateAsync() async {
     try {
-      var response = await this.apiService.getBox();
+      final response = await apiService.getBox();
 
       if (response.statusCode == HttpStatus.ok) {
         final box = boxFromJson(response.bodyString);
@@ -40,10 +40,10 @@ class SugarWodService {
   Future<List<WodDatum>> getWorkOutOfTheDayByDateAsync(DateTime date) async {
     try {
       // https://api.sugarwod.com/v2/workouts?dates=20210310
-      int today = int.parse(DateFormat('yyyyMMdd').format(date));
+      final today = int.parse(DateFormat('yyyyMMdd').format(date));
 
-      var response =
-          await this.apiService.getWorkoutsFilterByDateRange(today, today);
+      final response =
+          await apiService.getWorkoutsFilterByDateRange(today, today);
 
       if (response.statusCode == HttpStatus.ok) {
         final wod = workoutsFromJson(response.bodyString);
@@ -61,7 +61,7 @@ class SugarWodService {
   }
 
   /// gets initial list of games limited to 22
-  Future<Benchmarks> getBenchmarkByCategoryAsync(String category) async {
+  Future<Benchmarks?> getBenchmarkByCategoryAsync(String category) async {
     try {
       final response = await apiService.getBenchmarkByCategory(category);
       if (response.statusCode == HttpStatus.ok) {
@@ -79,7 +79,7 @@ class SugarWodService {
   }
 
   /// paging next 22
-  Future<Benchmarks> getNextBenchmarkByCategoryAsync(
+  Future<Benchmarks?> getNextBenchmarkByCategoryAsync(
       String category, String nextPage) async {
     try {
       final response =
@@ -99,7 +99,7 @@ class SugarWodService {
   }
 
   /// gets initial list of games limited to 22
-  Future<BarbellLifts> getBarbellsAsync() async {
+  Future<BarbellLifts?> getBarbellsAsync() async {
     try {
       final response = await apiService.getBarbellLifts();
 
@@ -118,7 +118,7 @@ class SugarWodService {
   }
 
   /// paging next 22
-  Future<BarbellLifts> getNextBarbellsAsync(String nextPage) async {
+  Future<BarbellLifts?> getNextBarbellsAsync(String nextPage) async {
     try {
       final response = await apiService.getNextBarbellLifts(nextPage);
 
@@ -137,7 +137,7 @@ class SugarWodService {
   }
 
   /// gets initial list of athletes limited to 22
-  Future<AthletesDto> getAthletesAsync() async {
+  Future<AthletesDto?> getAthletesAsync() async {
     try {
       final response = await apiService.getAthletes();
       if (response.statusCode == HttpStatus.ok) {
@@ -155,7 +155,7 @@ class SugarWodService {
   }
 
   /// paging next 22 athletes
-  Future<AthletesDto> getNextAthletesAsync(String page) async {
+  Future<AthletesDto?> getNextAthletesAsync(String page) async {
     try {
       final response = await apiService.getNextAthletes(page);
       if (response.statusCode == HttpStatus.ok) {

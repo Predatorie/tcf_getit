@@ -1,10 +1,11 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:tcf_getit/src/exceptions/timeout_exception.dart';
-import 'package:tcf_getit/src/models/benchmarks_dto.dart';
-import 'package:tcf_getit/src/providers/base_notifier.dart';
-import 'package:tcf_getit/src/services/sugarwod_service.dart';
+
+import '../exceptions/timeout_exception.dart';
+import '../models/benchmarks_dto.dart';
+import '../services/sugarwod_service.dart';
+import 'base_notifier.dart';
 
 class BenchmarkNotifier extends ChangeNotifier implements NotifierBase {
   /// backing field for the injected api service
@@ -17,10 +18,10 @@ class BenchmarkNotifier extends ChangeNotifier implements NotifierBase {
   String _category = '';
 
   /// constructor
-  BenchmarkNotifier({@required this.sugarWod});
+  BenchmarkNotifier({required this.sugarWod});
 
   /// gets or sets the property of all games
-  List<BenchmarksDatum> _benchmarks = [];
+  final List<BenchmarksDatum> _benchmarks = [];
   UnmodifiableListView<BenchmarksDatum> get benchmarks =>
       UnmodifiableListView(_benchmarks);
 
@@ -30,7 +31,7 @@ class BenchmarkNotifier extends ChangeNotifier implements NotifierBase {
   /// gets initial list of games limited to 22
   Future<void> getBenchmarkByCategoryAsync(String category) async {
     try {
-      this.isBusy = true;
+      isBusy = true;
 
       // cache for the next page query
       _category = category;
@@ -49,8 +50,8 @@ class BenchmarkNotifier extends ChangeNotifier implements NotifierBase {
         _benchmarks.addAll(response.data);
       }
     } on NetworkTimeOutException {
-      this.hasError = true;
-      this.errorMessage = 'Connection timed out.';
+      hasError = true;
+      errorMessage = 'Connection timed out.';
     } on Exception catch (e) {
       setError('$e');
     } finally {
@@ -62,7 +63,7 @@ class BenchmarkNotifier extends ChangeNotifier implements NotifierBase {
   /// paging next 22
   Future<void> getNextBenchmarkByCategoryAsync() async {
     try {
-      this.isBusy = true;
+      isBusy = true;
 
       if (hasNextPage) {
         final response = await sugarWod.getNextBenchmarkByCategoryAsync(
@@ -77,8 +78,8 @@ class BenchmarkNotifier extends ChangeNotifier implements NotifierBase {
         }
       }
     } on NetworkTimeOutException {
-      this.hasError = true;
-      this.errorMessage = 'Connection timed out.';
+      hasError = true;
+      errorMessage = 'Connection timed out.';
     } on Exception catch (e) {
       setError('$e');
     } finally {
@@ -88,32 +89,32 @@ class BenchmarkNotifier extends ChangeNotifier implements NotifierBase {
   }
 
   /// Sets up flag and value for pagination
-  _setNextPageUrl(String next) {
+  void _setNextPageUrl(String next) {
     /// set flag
-    this.hasNextPage = next != null && next.isNotEmpty;
+    hasNextPage = next != null && next.isNotEmpty;
 
     /// set url
-    if (this.hasNextPage) {
+    if (hasNextPage) {
       // get the full url and take right of the '?'
       final link = next;
       final page = link.split('?');
 
-      this._nextPageUrl = page[1];
+      _nextPageUrl = page[1];
     } else {
-      this._nextPageUrl = '';
+      _nextPageUrl = '';
     }
   }
 
   @override
   void clearError() {
-    this.errorMessage = '';
-    this.hasError = false;
+    errorMessage = '';
+    hasError = false;
   }
 
   @override
   void setError(String e) {
-    this.errorMessage = "$e";
-    this.hasError = true;
+    errorMessage = '$e';
+    hasError = true;
   }
 
   @override

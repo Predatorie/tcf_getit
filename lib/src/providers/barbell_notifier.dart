@@ -1,9 +1,10 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:tcf_getit/src/models/barbells_dto.dart';
-import 'package:tcf_getit/src/providers/base_notifier.dart';
-import 'package:tcf_getit/src/services/sugarwod_service.dart';
+
+import '../models/barbells_dto.dart';
+import '../services/sugarwod_service.dart';
+import 'base_notifier.dart';
 
 class BarbellNotifier extends ChangeNotifier implements NotifierBase {
   /// backing field for the injected api service
@@ -13,10 +14,10 @@ class BarbellNotifier extends ChangeNotifier implements NotifierBase {
   String _nextPageUrl = '';
 
   /// constructor
-  BarbellNotifier({@required this.sugarWod});
+  BarbellNotifier({required this.sugarWod});
 
   /// gets or sets the property of all games
-  List<BarbellsDatum> _barbells = [];
+  final List<BarbellsDatum> _barbells = [];
   UnmodifiableListView<BarbellsDatum> get barbell =>
       UnmodifiableListView(_barbells);
 
@@ -26,12 +27,12 @@ class BarbellNotifier extends ChangeNotifier implements NotifierBase {
   /// gets initial list of games limited to 22
   Future<void> getBarbellsAsync() async {
     try {
-      this.isBusy = true;
+      isBusy = true;
 
       clearError();
 
       // first time in so reset list if we are going back and forth
-      _barbells?.clear();
+      _barbells.clear();
 
       final response = await sugarWod.getBarbellsAsync();
       if (response != null) {
@@ -43,7 +44,7 @@ class BarbellNotifier extends ChangeNotifier implements NotifierBase {
     } catch (e) {
       setError('$e');
     } finally {
-      this.isBusy = false;
+      isBusy = false;
       notifyListeners();
     }
   }
@@ -51,54 +52,54 @@ class BarbellNotifier extends ChangeNotifier implements NotifierBase {
   /// paging next 22
   Future<void> getNextBarbellsAsync() async {
     try {
-      this.isBusy = true;
+      isBusy = true;
 
       clearError();
 
       if (hasNextPage) {
-        final response = await sugarWod.getNextBarbellsAsync(this._nextPageUrl);
+        final response = await sugarWod.getNextBarbellsAsync(_nextPageUrl);
 
         // setup for pagination
-        _setNextPageUrl(response.links.next);
+        _setNextPageUrl(response!.links.next);
 
         // notify those listening
-        _barbells.addAll(response.data);
+        _barbells.addAll(response!.data);
       }
     } catch (e) {
       setError('$e');
     } finally {
-      this.isBusy = false;
+      isBusy = false;
       notifyListeners();
     }
   }
 
   /// Sets up flag and value for pagination
-  _setNextPageUrl(String next) {
+  void _setNextPageUrl(String next) {
     /// set flag
-    this.hasNextPage = next != null && next.isNotEmpty;
+    hasNextPage = next.isNotEmpty;
 
     /// set url
-    if (this.hasNextPage) {
+    if (hasNextPage) {
       // get the full url and take right of the '?'
       final link = next;
       final page = link.split('?');
 
-      this._nextPageUrl = page[1];
+      _nextPageUrl = page[1];
     } else {
-      this._nextPageUrl = '';
+      _nextPageUrl = '';
     }
   }
 
   @override
   void clearError() {
-    this.errorMessage = '';
-    this.hasError = false;
+    errorMessage = '';
+    hasError = false;
   }
 
   @override
   void setError(String e) {
-    this.errorMessage = "$e";
-    this.hasError = true;
+    errorMessage = '$e';
+    hasError = true;
   }
 
   @override

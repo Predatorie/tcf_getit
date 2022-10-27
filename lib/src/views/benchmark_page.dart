@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tcf_getit/src/models/benchmarks_dto.dart';
-import 'package:tcf_getit/src/providers/benchmark_notifier.dart';
-import 'package:tcf_getit/styles/styles.dart';
+
+import '../../styles/styles.dart';
+import '../models/benchmarks_dto.dart';
+import '../providers/benchmark_notifier.dart';
 
 class BenchmarkPage extends StatefulWidget {
   static const String routeName = '/benchmark';
+
+  const BenchmarkPage({required Key key}) : super(key: key);
   @override
   _BenchmarkPageState createState() => _BenchmarkPageState();
 }
 
 class _BenchmarkPageState extends State<BenchmarkPage> {
-  ScrollController _scrollController;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
-    _scrollController ??= ScrollController();
+    _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
   }
 
@@ -41,7 +44,7 @@ class _BenchmarkPageState extends State<BenchmarkPage> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
                   child: InkWell(
-                      child: Icon(FontAwesomeIcons.arrowLeft),
+                      child: const Icon(FontAwesomeIcons.arrowLeft),
                       onTap: () => Navigator.pop(context)),
                 ),
                 alignment: Alignment.centerLeft,
@@ -83,7 +86,7 @@ class _BenchmarkPageState extends State<BenchmarkPage> {
                     ),
                     verticalMarginLarge(),
                     Text(
-                      "Score:  ${data[index].attributes.scoreType}",
+                      'Score:  ${data[index].attributes.scoreType}',
                       style: fontStyleCardMicro,
                     ),
                   ],

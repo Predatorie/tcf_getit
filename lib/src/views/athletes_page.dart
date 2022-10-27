@@ -14,7 +14,7 @@ class AthletesPage extends StatefulWidget {
 }
 
 class _AthletesPageState extends State<AthletesPage> {
-  ScrollController _scrollController;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _AthletesPageState extends State<AthletesPage> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
                   child: InkWell(
-                      child: Icon(FontAwesomeIcons.arrowLeft),
+                      child: const Icon(FontAwesomeIcons.arrowLeft),
                       onTap: () => Navigator.pop(context)),
                 ),
                 alignment: Alignment.centerLeft,
@@ -66,7 +66,7 @@ class _AthletesPageState extends State<AthletesPage> {
             ),
             Expanded(
               child: GridView(
-                padding: EdgeInsets.only(left: 10, right: 10),
+                padding: const EdgeInsets.only(left: 10, right: 10),
                 controller: _scrollController,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -80,10 +80,10 @@ class _AthletesPageState extends State<AthletesPage> {
                       )
                       .toList(),
                   service.isBusy
-                      ? Center(
+                      ? const Center(
                           child: CircularProgressIndicator(),
                         )
-                      : SizedBox(
+                      : const SizedBox(
                           height: 1,
                         )
                 ],

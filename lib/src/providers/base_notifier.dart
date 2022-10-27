@@ -1,12 +1,12 @@
 abstract class NotifierBase {
   /// public get property for the errorMessage
-  String errorMessage;
+  late String errorMessage;
 
   /// public get property for the hasError
-  bool hasError;
+  late bool hasError;
 
   /// public get property for the isBusy
-  bool isBusy;
+  late bool isBusy;
 
   /// clears any outstanding errors
   void clearError() {}

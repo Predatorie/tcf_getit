@@ -11,17 +11,17 @@ String barbellLiftsToJson(BarbellLifts data) => json.encode(data.toJson());
 
 class BarbellLifts {
   BarbellLifts({
-    this.data,
-    this.links,
+    required this.data,
+    required this.links,
   });
 
   BarbellLifts copyWith({
-    List<BarbellsDatum> data,
-    BarbellLiftsLinks links,
+    required List<BarbellsDatum> data,
+    required BarbellLiftsLinks links,
   }) =>
       BarbellLifts(
-        data: data ?? this.data,
-        links: links ?? this.links,
+        data: data,
+        links: links,
       );
 
   List<BarbellsDatum> data;
@@ -29,22 +29,22 @@ class BarbellLifts {
 
   factory BarbellLifts.fromJson(Map<String, dynamic> json) => BarbellLifts(
         data: List<BarbellsDatum>.from(
-            json["data"].map((x) => BarbellsDatum.fromJson(x))),
-        links: BarbellLiftsLinks.fromJson(json["links"]),
+            json['data'].map((x) => BarbellsDatum.fromJson(x))),
+        links: BarbellLiftsLinks.fromJson(json['links']),
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "links": links.toJson(),
+        'data': List<dynamic>.from(data.map((x) => x.toJson())),
+        'links': links.toJson(),
       };
 }
 
 class BarbellsDatum {
   BarbellsDatum({
-    this.type,
-    this.id,
-    this.attributes,
-    this.links,
+    required this.type,
+    required this.id,
+    required this.attributes,
+    required this.links,
   });
 
   String type;
@@ -53,37 +53,37 @@ class BarbellsDatum {
   DatumLinks links;
 
   factory BarbellsDatum.fromJson(Map<String, dynamic> json) => BarbellsDatum(
-        type: json["type"],
-        id: json["id"],
-        attributes: Attributes.fromJson(json["attributes"]),
-        links: DatumLinks.fromJson(json["links"]),
+        type: json['type'],
+        id: json['id'],
+        attributes: Attributes.fromJson(json['attributes']),
+        links: DatumLinks.fromJson(json['links']),
       );
 
   Map<String, dynamic> toJson() => {
-        "type": type,
-        "id": id,
-        "attributes": attributes.toJson(),
-        "links": links.toJson(),
+        'type': type,
+        'id': id,
+        'attributes': attributes.toJson(),
+        'links': links.toJson(),
       };
 }
 
 class Attributes {
   Attributes({
-    this.name,
-    this.category,
+    required this.name,
+    required this.category,
   });
 
   String name;
   String category;
 
   factory Attributes.fromJson(Map<String, dynamic> json) => Attributes(
-        name: json["name"],
-        category: json["category"],
+        name: json['name'],
+        category: json['category'],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "category": category,
+        'name': name,
+        'category': category,
       };
 }
 
@@ -97,8 +97,8 @@ class DatumLinks {
 
 class BarbellLiftsLinks {
   BarbellLiftsLinks({
-    this.self,
-    this.next,
+    required this.self,
+    required this.next,
   });
 
   String self;
@@ -106,12 +106,12 @@ class BarbellLiftsLinks {
 
   factory BarbellLiftsLinks.fromJson(Map<String, dynamic> json) =>
       BarbellLiftsLinks(
-        self: json["self"],
-        next: json["next"],
+        self: json['self'],
+        next: json['next'],
       );
 
   Map<String, dynamic> toJson() => {
-        "self": self,
-        "next": next,
+        'self': self,
+        'next': next,
       };
 }

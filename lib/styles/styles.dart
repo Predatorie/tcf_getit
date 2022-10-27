@@ -57,7 +57,9 @@ class WorkoutOfTheDayCard extends StatelessWidget {
   final List<WodDatum> data;
   final Function func;
 
-  const WorkoutOfTheDayCard({Key key, this.data, this.func}) : super(key: key);
+  const WorkoutOfTheDayCard(
+      {required Key key, required this.data, required this.func})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -76,14 +78,18 @@ class MenuCard extends StatelessWidget {
   final String subtitle;
   final Function func;
 
-  const MenuCard({Key key, this.title, this.subtitle, this.func})
+  const MenuCard(
+      {required Key key,
+      required this.title,
+      required this.subtitle,
+      required this.func})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: tollandCrossFitRed,
-      onTap: func,
+      onTap: () => func(),
       child: Card(
         shadowColor: tollandCrossFitBlue,
         child: Center(
@@ -108,11 +114,11 @@ class MenuCard extends StatelessWidget {
 }
 
 Widget iconWidgetButton(
-    {@required IconData icon, @required double size, @required Function func}) {
+    {required IconData icon, required double size, required Function func}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: InkWell(
-      onTap: func,
+      onTap: () => func(),
       child: Icon(
         icon,
         size: size,

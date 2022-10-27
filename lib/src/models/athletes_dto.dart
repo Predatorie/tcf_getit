@@ -9,34 +9,34 @@ AthletesDto athletesFromJson(String str) =>
 
 class AthletesDto {
   AthletesDto({
-    this.data,
-    this.links,
+    required this.data,
+    required this.links,
   });
 
   AthletesDto copyWith({
-    List<Datum> data,
-    AthletesLinks links,
+    required List<Datum> data,
+    required AthletesLinks links,
   }) =>
       AthletesDto(
-        data: data ?? this.data,
-        links: links ?? this.links,
+        data: data,
+        links: links,
       );
 
   List<Datum> data;
   AthletesLinks links;
 
   factory AthletesDto.fromJson(Map<String, dynamic> json) => AthletesDto(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-        links: AthletesLinks.fromJson(json["links"]),
+        data: List<Datum>.from(json['data'].map((x) => Datum.fromJson(x))),
+        links: AthletesLinks.fromJson(json['links']),
       );
 }
 
 class Datum {
   Datum({
-    this.type,
-    this.id,
-    this.attributes,
-    this.links,
+    required this.type,
+    required this.id,
+    required this.attributes,
+    required this.links,
   });
 
   String type;
@@ -45,22 +45,22 @@ class Datum {
   DatumLinks links;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        type: json["type"],
-        id: json["id"],
-        attributes: AthleteAttributes.fromJson(json["attributes"]),
-        links: DatumLinks.fromJson(json["links"]),
+        type: json['type'],
+        id: json['id'],
+        attributes: AthleteAttributes.fromJson(json['attributes']),
+        links: DatumLinks.fromJson(json['links']),
       );
 }
 
 class AthleteAttributes {
   AthleteAttributes({
-    this.createdAt,
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.gender,
-    this.profileImageUrl,
-    this.lastLogin,
+    required this.createdAt,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.gender,
+    required this.profileImageUrl,
+    required this.lastLogin,
   });
 
   DateTime createdAt;
@@ -73,43 +73,42 @@ class AthleteAttributes {
 
   factory AthleteAttributes.fromJson(Map<String, dynamic> json) =>
       AthleteAttributes(
-        createdAt: DateTime.parse(json["created_at"]),
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        email: json["email"],
-        gender: json["gender"],
-        profileImageUrl: json["profile_image_url"] == null
-            ? null
-            : json["profile_image_url"],
+        createdAt: DateTime.parse(json['created_at']),
+        firstName: json['first_name'],
+        lastName: json['last_name'],
+        email: json['email'],
+        gender: json['gender'],
+        profileImageUrl: json['profile_image_url'] ?? null,
+        lastLogin: DateTime.now(),
       );
 }
 
 class DatumLinks {
   DatumLinks({
-    this.uiAthlete,
-    this.removeFromAffiliate,
+    required this.uiAthlete,
+    required this.removeFromAffiliate,
   });
 
   String uiAthlete;
   String removeFromAffiliate;
 
   factory DatumLinks.fromJson(Map<String, dynamic> json) => DatumLinks(
-        uiAthlete: json["ui_athlete"],
-        removeFromAffiliate: json["remove_from_affiliate"],
+        uiAthlete: json['ui_athlete'],
+        removeFromAffiliate: json['remove_from_affiliate'],
       );
 }
 
 class AthletesLinks {
   AthletesLinks({
-    this.self,
-    this.next,
+    required this.self,
+    required this.next,
   });
 
   String self;
   String next;
 
   factory AthletesLinks.fromJson(Map<String, dynamic> json) => AthletesLinks(
-        self: json["self"],
-        next: json["next"],
+        self: json['self'],
+        next: json['next'],
       );
 }

@@ -11,13 +11,13 @@ String benchmarksToJson(Benchmarks data) => json.encode(data.toJson());
 
 class Benchmarks {
   Benchmarks({
-    this.data,
-    this.links,
+    required this.data,
+    required this.links,
   });
 
   Benchmarks copyWith({
-    List<BenchmarksDatum> data,
-    BenchmarksLinks links,
+    required List<BenchmarksDatum> data,
+    required BenchmarksLinks links,
   }) =>
       Benchmarks(
         data: data ?? this.data,
@@ -29,22 +29,22 @@ class Benchmarks {
 
   factory Benchmarks.fromJson(Map<String, dynamic> json) => Benchmarks(
         data: List<BenchmarksDatum>.from(
-            json["data"].map((x) => BenchmarksDatum.fromJson(x))),
-        links: BenchmarksLinks.fromJson(json["links"]),
+            json['data'].map((x) => BenchmarksDatum.fromJson(x))),
+        links: BenchmarksLinks.fromJson(json['links']),
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "links": links.toJson(),
+        'data': List<dynamic>.from(data.map((x) => x.toJson())),
+        'links': links.toJson(),
       };
 }
 
 class BenchmarksDatum {
   BenchmarksDatum({
-    this.type,
-    this.id,
-    this.attributes,
-    this.links,
+    required this.type,
+    required this.id,
+    required this.attributes,
+    required this.links,
   });
 
   String type;
@@ -54,27 +54,27 @@ class BenchmarksDatum {
 
   factory BenchmarksDatum.fromJson(Map<String, dynamic> json) =>
       BenchmarksDatum(
-        type: json["type"],
-        id: json["id"],
-        attributes: Attributes.fromJson(json["attributes"]),
-        links: DatumLinks.fromJson(json["links"]),
+        type: json['type'],
+        id: json['id'],
+        attributes: Attributes.fromJson(json['attributes']),
+        links: DatumLinks.fromJson(json['links']),
       );
 
   Map<String, dynamic> toJson() => {
-        "type": type,
-        "id": id,
-        "attributes": attributes.toJson(),
-        "links": links.toJson(),
+        'type': type,
+        'id': id,
+        'attributes': attributes.toJson(),
+        'links': links.toJson(),
       };
 }
 
 class Attributes {
   Attributes({
-    this.name,
-    this.description,
-    this.category,
-    this.scoreType,
-    this.movementIds,
+    required this.name,
+    required this.description,
+    required this.category,
+    required this.scoreType,
+    required this.movementIds,
   });
 
   String name;
@@ -84,19 +84,19 @@ class Attributes {
   List<String> movementIds;
 
   factory Attributes.fromJson(Map<String, dynamic> json) => Attributes(
-        name: json["name"],
-        description: json["description"],
-        category: json["category"],
-        scoreType: json["score_type"],
-        movementIds: List<String>.from(json["movement_ids"].map((x) => x)),
+        name: json['name'],
+        description: json['description'],
+        category: json['category'],
+        scoreType: json['score_type'],
+        movementIds: List<String>.from(json['movement_ids'].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "description": description,
-        "category": category,
-        "score_type": scoreType,
-        "movement_ids": List<dynamic>.from(movementIds.map((x) => x)),
+        'name': name,
+        'description': description,
+        'category': category,
+        'score_type': scoreType,
+        'movement_ids': List<dynamic>.from(movementIds.map((x) => x)),
       };
 }
 
@@ -110,8 +110,8 @@ class DatumLinks {
 
 class BenchmarksLinks {
   BenchmarksLinks({
-    this.self,
-    this.next,
+    required this.self,
+    required this.next,
   });
 
   String self;
@@ -119,12 +119,12 @@ class BenchmarksLinks {
 
   factory BenchmarksLinks.fromJson(Map<String, dynamic> json) =>
       BenchmarksLinks(
-        self: json["self"],
-        next: json["next"],
+        self: json['self'],
+        next: json['next'],
       );
 
   Map<String, dynamic> toJson() => {
-        "self": self,
-        "next": next,
+        'self': self,
+        'next': next,
       };
 }

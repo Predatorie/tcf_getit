@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tcf_getit/src/providers/affiliate_notifier.dart';
-import 'package:tcf_getit/styles/styles.dart';
+
+import '../../styles/styles.dart';
+import '../providers/affiliate_notifier.dart';
 
 class AffiliatePage extends StatelessWidget {
   static const String routeName = '/box';
+
+  const AffiliatePage({required Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
