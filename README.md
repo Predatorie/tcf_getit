@@ -4,7 +4,7 @@ This project was originally create at the end of 2021 and is a quick (rough) pro
 
 This app was for my CrossFit affiliate that allow users to quickly access various CrossFit workouts that leverages the [SugarWOD](https://www.sugarwod.com/) API.
 
-Packages of interest used in this project from a learning perspective: [https://pub.dev/packages/provider](https://pub.dev/packages/provider) [Chopper](https://pub.dev/packages/chopper) is an http client generator for Dart and Flutter using source_gen and inspired by Retrofit, [get_it](https://pub.dev/packages/get_it) a simple Service Locator for Dart and Flutter projects with some additional goodies highly inspired by [Splat](https://github.com/reactiveui/splat), [intl](https://pub.dev/packages?q=intl) provides internationalization and localization facilities, including message translation, plurals and genders, date/number formatting and parsing, and bidirectional text.
+Packages of interest used in this project from a learning perspective: [Provider](https://pub.dev/packages/provider), [Chopper](https://pub.dev/packages/chopper) is an http client generator for Dart and Flutter using source_gen and inspired by Retrofit, [get_it](https://pub.dev/packages/get_it) a simple Service Locator for Dart and Flutter projects with some additional goodies highly inspired by [Splat](https://github.com/reactiveui/splat), [intl](https://pub.dev/packages?q=intl) provides internationalization and localization facilities, including message translation, plurals and genders, date/number formatting and parsing, and bidirectional text.
 
 **NOTE: You will need a [SugarWOD API](https://www.sugarwod.com/fitness-software-developers/) to run this project (Not included)**
 
