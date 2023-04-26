@@ -2,12 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tcf_getit/branding/branding.dart';
-import 'package:tcf_getit/src/models/athletes_dto.dart';
-import 'package:tcf_getit/src/providers/athletes_notifier.dart';
+
+import '../../branding/branding.dart';
+import '../models/athletes_dto.dart';
+import '../providers/athletes_notifier.dart';
 
 class AthletesPage extends StatefulWidget {
   static const String routeName = '/athletes';
+
+  const AthletesPage({Key? key}) : super(key: key);
 
   @override
   _AthletesPageState createState() => _AthletesPageState();
@@ -19,13 +22,13 @@ class _AthletesPageState extends State<AthletesPage> {
   @override
   void initState() {
     super.initState();
-    _scrollController ??= ScrollController();
+    _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
   }
 
   @override
   void dispose() {
-    _scrollController?.dispose();
+    _scrollController.dispose();
 
     super.dispose();
   }
@@ -50,47 +53,43 @@ class _AthletesPageState extends State<AthletesPage> {
 
     return Scaffold(
         body: SafeArea(
-      child: Container(
-        child: Column(
-          children: [
-            Container(
-              child: Align(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
-                  child: InkWell(
-                      child: const Icon(FontAwesomeIcons.arrowLeft),
-                      onTap: () => Navigator.pop(context)),
-                ),
-                alignment: Alignment.centerLeft,
-              ),
+      child: Column(
+        children: [
+          Align(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+              child: InkWell(
+                  child: const Icon(FontAwesomeIcons.arrowLeft),
+                  onTap: () => Navigator.pop(context)),
             ),
-            Expanded(
-              child: GridView(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                controller: _scrollController,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: .9,
-                    crossAxisSpacing: 2,
-                    mainAxisSpacing: 2),
-                children: [
-                  ...service.athletes
-                      .map(
-                        (athlete) => _athleteCard(athlete),
+            alignment: Alignment.centerLeft,
+          ),
+          Expanded(
+            child: GridView(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              controller: _scrollController,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: .9,
+                  crossAxisSpacing: 2,
+                  mainAxisSpacing: 2),
+              children: [
+                ...service.athletes
+                    .map(
+                      (athlete) => _athleteCard(athlete),
+                    )
+                    .toList(),
+                service.isBusy
+                    ? const Center(
+                        child: CircularProgressIndicator(),
                       )
-                      .toList(),
-                  service.isBusy
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : const SizedBox(
-                          height: 1,
-                        )
-                ],
-              ),
+                    : const SizedBox(
+                        height: 1,
+                      )
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     ));
   }
@@ -104,7 +103,7 @@ class _AthletesPageState extends State<AthletesPage> {
           key: Key(data.email),
           borderOnForeground: false,
           shadowColor: tollandCrossFitBlue,
-          margin: EdgeInsets.only(top: 20),
+          margin: const EdgeInsets.only(top: 20),
           semanticContainer: false,
           elevation: 4,
           child: Column(
@@ -129,15 +128,15 @@ class _AthletesPageState extends State<AthletesPage> {
                         'assets/images/tcf_logo_small.png',
                       ),
                     ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
                 data.firstName.toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                     color: tollandCrossFitBlue, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
             ],

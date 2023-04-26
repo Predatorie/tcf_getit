@@ -63,7 +63,7 @@ class BarbellNotifier extends ChangeNotifier implements NotifierBase {
         _setNextPageUrl(response!.links.next);
 
         // notify those listening
-        _barbells.addAll(response!.data);
+        _barbells.addAll(response.data);
       }
     } catch (e) {
       setError('$e');

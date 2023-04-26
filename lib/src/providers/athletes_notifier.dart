@@ -31,7 +31,7 @@ class AthletesNotifier extends ChangeNotifier implements NotifierBase {
       isBusy = true;
 
       // first time in so reset list if we are going back and forth
-      _athletes?.clear();
+      _athletes.clear();
 
       final response = await sugarWod.getAthletesAsync();
 

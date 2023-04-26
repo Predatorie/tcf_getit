@@ -20,8 +20,8 @@ class WorkoutsDto {
     required WorkoutsLinks links,
   }) =>
       WorkoutsDto(
-        data: data ?? this.data,
-        links: links ?? this.links,
+        data: data,
+        links: links,
       );
 
   List<WodDatum> data;

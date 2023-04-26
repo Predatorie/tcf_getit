@@ -21,7 +21,7 @@ class WodNotifier extends ChangeNotifier implements NotifierBase {
     try {
       isBusy = true;
 
-      _data?.clear();
+      _data.clear();
 
       clearError();
 

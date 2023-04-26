@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white),
       routes: {
         '/': (context) => const HomePage(),
-        AthletesPage.routeName: (context) => AthletesPage(),
+        AthletesPage.routeName: (context) => const AthletesPage(),
         WodPage.routeName: (context) => WodPage(),
         BenchmarkPage.routeName: (context) => const BenchmarkPage(
               key: Key('benchmark_page_key'),

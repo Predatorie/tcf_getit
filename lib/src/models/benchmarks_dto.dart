@@ -20,8 +20,8 @@ class Benchmarks {
     required BenchmarksLinks links,
   }) =>
       Benchmarks(
-        data: data ?? this.data,
-        links: links ?? this.links,
+        data: data,
+        links: links,
       );
 
   List<BenchmarksDatum> data;

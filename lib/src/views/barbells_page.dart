@@ -26,7 +26,7 @@ class _BarbellsPageState extends State<BarbellsPage> {
 
   @override
   void dispose() {
-    _scrollController?.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -36,23 +36,19 @@ class _BarbellsPageState extends State<BarbellsPage> {
 
     return Scaffold(
         body: SafeArea(
-      child: Container(
-        child: Column(
-          children: [
-            Container(
-              child: Align(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
-                  child: InkWell(
-                      child: const Icon(FontAwesomeIcons.arrowLeft),
-                      onTap: () => Navigator.pop(context)),
-                ),
-                alignment: Alignment.centerLeft,
-              ),
+      child: Column(
+        children: [
+          Align(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+              child: InkWell(
+                  child: const Icon(FontAwesomeIcons.arrowLeft),
+                  onTap: () => Navigator.pop(context)),
             ),
-            _benchmarkCard(service.barbell),
-          ],
-        ),
+            alignment: Alignment.centerLeft,
+          ),
+          _benchmarkCard(service.barbell),
+        ],
       ),
     ));
   }
