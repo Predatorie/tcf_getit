@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tcf_getit/src/providers/wod_notifier.dart';
-import 'package:tcf_getit/styles/styles.dart';
+
+import '../../styles/styles.dart';
+import '../providers/wod_notifier.dart';
 
 class WodPage extends StatelessWidget {
   static const String routeName = '/wod';
+
+  const WodPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Consumer<WodNotifier>(builder: (context, service, child) {
-          return Container(
-              child: Column(
+          return Column(
             children: [
-              Container(
-                child: Align(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
-                    child: InkWell(
-                        child: Icon(FontAwesomeIcons.arrowLeft),
-                        onTap: () => Navigator.pop(context)),
-                  ),
-                  alignment: Alignment.centerLeft,
+              Align(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+                  child: InkWell(
+                      child: const Icon(FontAwesomeIcons.arrowLeft),
+                      onTap: () => Navigator.pop(context)),
                 ),
+                alignment: Alignment.centerLeft,
               ),
               Expanded(
                 child: ListView.builder(
@@ -44,17 +44,17 @@ class WodPage extends StatelessWidget {
                                 child: Text(
                                   service.wod[index].attributes.track
                                       .attributesFor.name,
-                                  style: TextStyle(fontSize: 20),
+                                  style: const TextStyle(fontSize: 20),
                                 ),
                               ),
                               Text(
                                 service.wod[index].attributes.title,
-                                style: TextStyle(fontSize: 16),
+                                style: const TextStyle(fontSize: 16),
                               ),
                               verticalMarginSmall(),
                               Text(
                                 service.wod[index].attributes.description,
-                                style: TextStyle(fontSize: 16),
+                                style: const TextStyle(fontSize: 16),
                               ),
                               verticalMarginLarge(),
                             ],
@@ -64,7 +64,7 @@ class WodPage extends StatelessWidget {
                     }),
               ),
             ],
-          ));
+          );
         }),
       ),
     );

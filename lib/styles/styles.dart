@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tcf_getit/branding/branding.dart';
-import 'package:tcf_getit/src/models/wods_dto.dart';
+
+import '../branding/branding.dart';
+import '../src/models/wods_dto.dart';
 
 const fontStyleMenuTitle = TextStyle(
     fontSize: 14,
@@ -36,19 +37,19 @@ const double menuCardHeight = 80;
 
 const double menuCardWidth = 120;
 
-Widget verticalMarginSmall() => SizedBox(
+Widget verticalMarginSmall() => const SizedBox(
       height: 2,
     );
 
-Widget verticalMarginMedium() => SizedBox(
+Widget verticalMarginMedium() => const SizedBox(
       height: 4,
     );
 
-Widget verticalMarginLarge() => SizedBox(
+Widget verticalMarginLarge() => const SizedBox(
       height: 6,
     );
 
-Widget verticalMarginExtraLarge() => SizedBox(
+Widget verticalMarginExtraLarge() => const SizedBox(
       height: 10,
     );
 

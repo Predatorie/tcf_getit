@@ -95,8 +95,7 @@ class _AthletesPageState extends State<AthletesPage> {
   }
 
   Widget _athleteCard(AthleteAttributes data) {
-    final isEmpty =
-        data.profileImageUrl == null || data.profileImageUrl.isEmpty;
+    final isEmpty = data.profileImageUrl.isEmpty;
 
     return Center(
       child: Card(

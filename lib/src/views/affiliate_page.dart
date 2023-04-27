@@ -14,19 +14,16 @@ class AffiliatePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Consumer<AffiliateNotifier>(builder: (context, service, child) {
-          return Container(
-              child: Column(
+          return Column(
             children: [
-              Container(
-                child: Align(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
-                    child: InkWell(
-                        child: Icon(FontAwesomeIcons.arrowLeft),
-                        onTap: () => Navigator.pop(context)),
-                  ),
-                  alignment: Alignment.centerLeft,
+              Align(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+                  child: InkWell(
+                      child: const Icon(FontAwesomeIcons.arrowLeft),
+                      onTap: () => Navigator.pop(context)),
                 ),
+                alignment: Alignment.centerLeft,
               ),
               Expanded(
                 child: Column(
@@ -52,7 +49,7 @@ class AffiliatePage extends StatelessWidget {
                 ),
               ),
             ],
-          ));
+          );
         }),
       ),
     );
