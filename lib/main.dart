@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomePage(),
         AthletesPage.routeName: (context) => const AthletesPage(),
-        WodPage.routeName: (context) => WodPage(),
+        WodPage.routeName: (context) => const WodPage(),
         BenchmarkPage.routeName: (context) => const BenchmarkPage(
               key: Key('benchmark_page_key'),
             ),
