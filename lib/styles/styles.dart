@@ -64,7 +64,7 @@ class WorkoutOfTheDayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return const InkWell(
       child: Card(
         child: Column(
           children: [],
