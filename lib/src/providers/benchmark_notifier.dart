@@ -91,7 +91,7 @@ class BenchmarkNotifier extends ChangeNotifier implements NotifierBase {
   /// Sets up flag and value for pagination
   void _setNextPageUrl(String next) {
     /// set flag
-    hasNextPage = next != null && next.isNotEmpty;
+    hasNextPage = next.isNotEmpty;
 
     /// set url
     if (hasNextPage) {
