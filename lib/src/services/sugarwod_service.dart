@@ -42,8 +42,10 @@ class SugarWodService {
       // https://api.sugarwod.com/v2/workouts?dates=20210310
       final today = int.parse(DateFormat('yyyyMMdd').format(date));
 
-      final response =
-          await apiService.getWorkoutsFilterByDateRange(today, today);
+      final response = await apiService.getWorkoutsFilterByDateRange(
+        today,
+        today,
+      );
 
       if (response.statusCode == HttpStatus.ok) {
         final wod = workoutsFromJson(response.bodyString);
@@ -80,10 +82,14 @@ class SugarWodService {
 
   /// paging next 22
   Future<Benchmarks?> getNextBenchmarkByCategoryAsync(
-      String category, String nextPage) async {
+    String category,
+    String nextPage,
+  ) async {
     try {
-      final response =
-          await apiService.getNextBenchmarkByCategory(category, nextPage);
+      final response = await apiService.getNextBenchmarkByCategory(
+        category,
+        nextPage,
+      );
       if (response.statusCode == HttpStatus.ok) {
         return benchmarksFromJson(response.bodyString);
       }

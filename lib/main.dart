@@ -22,22 +22,23 @@ void main() {
   runApp(
     /// Providers are above [MyApp] instead of inside it, so that tests
     /// can use [MyApp] while mocking the src.providers
-
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => WodNotifier(sugarWod: sugarWod)),
         ChangeNotifierProvider(
-            create: (_) => AthletesNotifier(sugarWod: sugarWod)),
+          create: (_) => AthletesNotifier(sugarWod: sugarWod),
+        ),
         ChangeNotifierProvider(
-            create: (_) => BarbellNotifier(sugarWod: sugarWod)),
+          create: (_) => BarbellNotifier(sugarWod: sugarWod),
+        ),
         ChangeNotifierProvider(
-            create: (_) => AffiliateNotifier(sugarWod: sugarWod)),
+          create: (_) => AffiliateNotifier(sugarWod: sugarWod),
+        ),
         ChangeNotifierProvider(
-            create: (_) => BenchmarkNotifier(sugarWod: sugarWod)),
+          create: (_) => BenchmarkNotifier(sugarWod: sugarWod),
+        ),
       ],
-      child: const MyApp(
-        key: Key('app_key'),
-      ),
+      child: const MyApp(key: Key('app_key')),
     ),
   );
 }
@@ -50,21 +51,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TCF',
       theme: ThemeData().copyWith(
-          primaryColor: tollandCrossFitBlue,
-          scaffoldBackgroundColor: Colors.white),
+        primaryColor: tollandCrossFitBlue,
+        scaffoldBackgroundColor: Colors.white,
+      ),
       routes: {
         '/': (context) => const HomePage(),
         AthletesPage.routeName: (context) => const AthletesPage(),
         WodPage.routeName: (context) => const WodPage(),
-        BenchmarkPage.routeName: (context) => const BenchmarkPage(
-              key: Key('benchmark_page_key'),
-            ),
-        BarbellsPage.routeName: (context) => const BarbellsPage(
-              key: Key('barbells_page_key'),
-            ),
-        AffiliatePage.routeName: (context) => const AffiliatePage(
-              key: Key('affiliate_page_key'),
-            ),
+        BenchmarkPage.routeName:
+            (context) => const BenchmarkPage(key: Key('benchmark_page_key')),
+        BarbellsPage.routeName:
+            (context) => const BarbellsPage(key: Key('barbells_page_key')),
+        AffiliatePage.routeName:
+            (context) => const AffiliatePage(key: Key('affiliate_page_key')),
       },
     );
   }

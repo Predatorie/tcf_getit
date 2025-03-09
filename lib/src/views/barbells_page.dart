@@ -35,22 +35,24 @@ class _BarbellsPageState extends State<BarbellsPage> {
     final service = context.watch<BarbellNotifier>();
 
     return Scaffold(
-        body: SafeArea(
-      child: Column(
-        children: [
-          Align(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
-              child: InkWell(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Align(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+                child: InkWell(
                   child: const Icon(FontAwesomeIcons.arrowLeft),
-                  onTap: () => Navigator.pop(context)),
+                  onTap: () => Navigator.pop(context),
+                ),
+              ),
+              alignment: Alignment.centerLeft,
             ),
-            alignment: Alignment.centerLeft,
-          ),
-          _benchmarkCard(service.barbell),
-        ],
+            _benchmarkCard(service.barbell),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   Widget _benchmarkCard(List<BarbellsDatum> data) {
@@ -71,10 +73,11 @@ class _BarbellsPageState extends State<BarbellsPage> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Center(
-                        child: Text(
-                      data[index].attributes.name,
-                      style: fontStyleCardTitle,
-                    )),
+                      child: Text(
+                        data[index].attributes.name,
+                        style: fontStyleCardTitle,
+                      ),
+                    ),
                     verticalMarginLarge(),
                     Text(
                       'Category: ${data[index].attributes.category}',
@@ -98,8 +101,10 @@ class _BarbellsPageState extends State<BarbellsPage> {
 
     if (currentScroll >= maxScroll && !_scrollController.position.outOfRange) {
       if (Provider.of<BarbellNotifier>(context, listen: false).hasNextPage) {
-        await Provider.of<BarbellNotifier>(context, listen: false)
-            .getNextBarbellsAsync();
+        await Provider.of<BarbellNotifier>(
+          context,
+          listen: false,
+        ).getNextBarbellsAsync();
       }
     }
   }

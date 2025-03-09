@@ -53,32 +53,40 @@ class HomePage extends StatelessWidget {
                               child: Consumer<WodNotifier>(
                                 builder: (context, service, _) {
                                   return MenuCard(
-                                      key: const Key('wodKey'),
-                                      title: 'WOD',
-                                      subtitle: 'Today\'s',
-                                      func: () async {
-                                        /// ignore repeated presses
-                                        if (!service.isBusy) {
-                                          /// get the wod of the day
-                                          await service
-                                              .getWorkOutOfTheDayByDateAsync(
-                                                  DateTime.now());
+                                    key: const Key('wodKey'),
+                                    title: 'WOD',
+                                    subtitle: 'Today\'s',
+                                    func: () async {
+                                      /// ignore repeated presses
+                                      if (!service.isBusy) {
+                                        /// get the wod of the day
+                                        await service
+                                            .getWorkOutOfTheDayByDateAsync(
+                                              DateTime.now(),
+                                            );
 
-                                          /// check for any errors
-                                          if (service.hasError) {
-                                            /// show a snack bar
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content:
-                                                  Text(service.errorMessage),
-                                            ));
-                                          } else {
-                                            /// navigate to the wod page
-                                            await Navigator.pushNamed(
-                                                context, WodPage.routeName);
-                                          }
+                                        /// check for any errors
+                                        if (service.hasError) {
+                                          /// show a snack bar
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                service.errorMessage,
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          /// navigate to the wod page
+                                          await Navigator.pushNamed(
+                                            context,
+                                            WodPage.routeName,
+                                          );
                                         }
-                                      });
+                                      }
+                                    },
+                                  );
                                 },
                               ),
                             ),
@@ -88,32 +96,40 @@ class HomePage extends StatelessWidget {
                               child: Consumer<BenchmarkNotifier>(
                                 builder: (context, service, child) {
                                   return MenuCard(
-                                      key: const Key('heroesKey'),
-                                      title: 'HEROES',
-                                      subtitle: 'Benchmark',
-                                      func: () async {
-                                        /// ignore repeated presses
-                                        if (!service.isBusy) {
-                                          /// get the wod of the day
-                                          await service
-                                              .getBenchmarkByCategoryAsync(
-                                                  'heroes');
+                                    key: const Key('heroesKey'),
+                                    title: 'HEROES',
+                                    subtitle: 'Benchmark',
+                                    func: () async {
+                                      /// ignore repeated presses
+                                      if (!service.isBusy) {
+                                        /// get the wod of the day
+                                        await service
+                                            .getBenchmarkByCategoryAsync(
+                                              'heroes',
+                                            );
 
-                                          /// check for any errors
-                                          if (service.hasError) {
-                                            /// show a snack bar
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content:
-                                                  Text(service.errorMessage),
-                                            ));
-                                          } else {
-                                            /// navigate to the wod page
-                                            await Navigator.pushNamed(context,
-                                                BenchmarkPage.routeName);
-                                          }
+                                        /// check for any errors
+                                        if (service.hasError) {
+                                          /// show a snack bar
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                service.errorMessage,
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          /// navigate to the wod page
+                                          await Navigator.pushNamed(
+                                            context,
+                                            BenchmarkPage.routeName,
+                                          );
                                         }
-                                      });
+                                      }
+                                    },
+                                  );
                                 },
                               ),
                             ),
@@ -123,32 +139,40 @@ class HomePage extends StatelessWidget {
                               child: Consumer<BenchmarkNotifier>(
                                 builder: (context, service, child) {
                                   return MenuCard(
-                                      key: const Key('girlsKey'),
-                                      title: 'GIRLS',
-                                      subtitle: 'Benchmark',
-                                      func: () async {
-                                        /// ignore repeated presses
-                                        if (!service.isBusy) {
-                                          /// get the wod of the day
-                                          await service
-                                              .getBenchmarkByCategoryAsync(
-                                                  'girls');
+                                    key: const Key('girlsKey'),
+                                    title: 'GIRLS',
+                                    subtitle: 'Benchmark',
+                                    func: () async {
+                                      /// ignore repeated presses
+                                      if (!service.isBusy) {
+                                        /// get the wod of the day
+                                        await service
+                                            .getBenchmarkByCategoryAsync(
+                                              'girls',
+                                            );
 
-                                          /// check for any errors
-                                          if (service.hasError) {
-                                            /// show a snack bar
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content:
-                                                  Text(service.errorMessage),
-                                            ));
-                                          } else {
-                                            /// navigate to the wod page
-                                            await Navigator.pushNamed(context,
-                                                BenchmarkPage.routeName);
-                                          }
+                                        /// check for any errors
+                                        if (service.hasError) {
+                                          /// show a snack bar
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                service.errorMessage,
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          /// navigate to the wod page
+                                          await Navigator.pushNamed(
+                                            context,
+                                            BenchmarkPage.routeName,
+                                          );
                                         }
-                                      });
+                                      }
+                                    },
+                                  );
                                 },
                               ),
                             ),
@@ -171,20 +195,28 @@ class HomePage extends StatelessWidget {
                                         /// get the first page of athletes
                                         await service
                                             .getBenchmarkByCategoryAsync(
-                                                'games');
+                                              'games',
+                                            );
 
                                         /// check for errors
                                         if (service.hasError) {
                                           /// show a snack bar
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: Text(service.errorMessage),
-                                          ));
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                service.errorMessage,
+                                              ),
+                                            ),
+                                          );
                                         } else {
                                           /// navigate to the athletes page
                                           if (service.hasNextPage) {
-                                            await Navigator.pushNamed(context,
-                                                BenchmarkPage.routeName);
+                                            await Navigator.pushNamed(
+                                              context,
+                                              BenchmarkPage.routeName,
+                                            );
                                           }
                                         }
                                       }
@@ -208,20 +240,28 @@ class HomePage extends StatelessWidget {
                                         /// get the first page of athletes
                                         await service
                                             .getBenchmarkByCategoryAsync(
-                                                'gymnastics');
+                                              'gymnastics',
+                                            );
 
                                         /// check for errors
                                         if (service.hasError) {
                                           /// show a snack bar
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: Text(service.errorMessage),
-                                          ));
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                service.errorMessage,
+                                              ),
+                                            ),
+                                          );
                                         } else {
                                           /// navigate to the athletes page
                                           if (service.hasNextPage) {
-                                            await Navigator.pushNamed(context,
-                                                BenchmarkPage.routeName);
+                                            await Navigator.pushNamed(
+                                              context,
+                                              BenchmarkPage.routeName,
+                                            );
                                           }
                                         }
                                       }
@@ -245,20 +285,28 @@ class HomePage extends StatelessWidget {
                                         /// get the first page of athletes
                                         await service
                                             .getBenchmarkByCategoryAsync(
-                                                'notables');
+                                              'notables',
+                                            );
 
                                         /// check for errors
                                         if (service.hasError) {
                                           /// show a snack bar
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: Text(service.errorMessage),
-                                          ));
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                service.errorMessage,
+                                              ),
+                                            ),
+                                          );
                                         } else {
                                           /// navigate to the athletes page
                                           if (service.hasNextPage) {
-                                            await Navigator.pushNamed(context,
-                                                BenchmarkPage.routeName);
+                                            await Navigator.pushNamed(
+                                              context,
+                                              BenchmarkPage.routeName,
+                                            );
                                           }
                                         }
                                       }
@@ -289,13 +337,20 @@ class HomePage extends StatelessWidget {
                                         /// check for errors
                                         if (service.hasError) {
                                           /// show a snack bar
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: Text(service.errorMessage),
-                                          ));
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                service.errorMessage,
+                                              ),
+                                            ),
+                                          );
                                         } else {
                                           await Navigator.pushNamed(
-                                              context, AffiliatePage.routeName);
+                                            context,
+                                            AffiliatePage.routeName,
+                                          );
                                         }
                                       }
                                     },
@@ -321,15 +376,22 @@ class HomePage extends StatelessWidget {
                                         /// check for errors
                                         if (service.hasError) {
                                           /// show a snack bar
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: Text(service.errorMessage),
-                                          ));
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                service.errorMessage,
+                                              ),
+                                            ),
+                                          );
                                         } else {
                                           /// navigate to the athletes page
                                           if (service.hasNextPage) {
-                                            await Navigator.pushNamed(context,
-                                                BarbellsPage.routeName);
+                                            await Navigator.pushNamed(
+                                              context,
+                                              BarbellsPage.routeName,
+                                            );
                                           }
                                         }
                                       }
@@ -356,15 +418,22 @@ class HomePage extends StatelessWidget {
                                         /// check for errors
                                         if (service.hasError) {
                                           /// show a snack bar
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: Text(service.errorMessage),
-                                          ));
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                service.errorMessage,
+                                              ),
+                                            ),
+                                          );
                                         } else {
                                           /// navigate to the athletes page
                                           if (service.hasNextPage) {
-                                            await Navigator.pushNamed(context,
-                                                AthletesPage.routeName);
+                                            await Navigator.pushNamed(
+                                              context,
+                                              AthletesPage.routeName,
+                                            );
                                           }
                                         }
                                       }
@@ -385,22 +454,28 @@ class HomePage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     iconWidgetButton(
-                        icon: FontAwesomeIcons.squareTwitter,
-                        size: 38,
-                        func: () =>
-                            print('https://twitter.com/TollandCrossFit')),
+                      icon: FontAwesomeIcons.squareTwitter,
+                      size: 38,
+                      func: () => print('https://twitter.com/TollandCrossFit'),
+                    ),
                     iconWidgetButton(
-                        icon: FontAwesomeIcons.squareFacebook,
-                        size: 38,
-                        func: () =>
-                            print('https://www.facebook.com/tollandcrossfit/')),
+                      icon: FontAwesomeIcons.squareFacebook,
+                      size: 38,
+                      func:
+                          () => print(
+                            'https://www.facebook.com/tollandcrossfit/',
+                          ),
+                    ),
                     iconWidgetButton(
-                        icon: FontAwesomeIcons.squareInstagram,
-                        size: 38,
-                        func: () => print(
-                            'https://www.instagram.com/TollandCrossFit/')),
+                      icon: FontAwesomeIcons.squareInstagram,
+                      size: 38,
+                      func:
+                          () => print(
+                            'https://www.instagram.com/TollandCrossFit/',
+                          ),
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),

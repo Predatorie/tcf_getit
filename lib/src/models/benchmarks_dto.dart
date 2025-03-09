@@ -10,33 +10,27 @@ Benchmarks benchmarksFromJson(String str) =>
 String benchmarksToJson(Benchmarks data) => json.encode(data.toJson());
 
 class Benchmarks {
-  Benchmarks({
-    required this.data,
-    required this.links,
-  });
+  Benchmarks({required this.data, required this.links});
 
   Benchmarks copyWith({
     required List<BenchmarksDatum> data,
     required BenchmarksLinks links,
-  }) =>
-      Benchmarks(
-        data: data,
-        links: links,
-      );
+  }) => Benchmarks(data: data, links: links);
 
   List<BenchmarksDatum> data;
   BenchmarksLinks links;
 
   factory Benchmarks.fromJson(Map<String, dynamic> json) => Benchmarks(
-        data: List<BenchmarksDatum>.from(
-            json['data'].map((x) => BenchmarksDatum.fromJson(x))),
-        links: BenchmarksLinks.fromJson(json['links']),
-      );
+    data: List<BenchmarksDatum>.from(
+      json['data'].map((x) => BenchmarksDatum.fromJson(x)),
+    ),
+    links: BenchmarksLinks.fromJson(json['links']),
+  );
 
   Map<String, dynamic> toJson() => {
-        'data': List<dynamic>.from(data.map((x) => x.toJson())),
-        'links': links.toJson(),
-      };
+    'data': List<dynamic>.from(data.map((x) => x.toJson())),
+    'links': links.toJson(),
+  };
 }
 
 class BenchmarksDatum {
@@ -61,11 +55,11 @@ class BenchmarksDatum {
       );
 
   Map<String, dynamic> toJson() => {
-        'type': type,
-        'id': id,
-        'attributes': attributes.toJson(),
-        'links': links.toJson(),
-      };
+    'type': type,
+    'id': id,
+    'attributes': attributes.toJson(),
+    'links': links.toJson(),
+  };
 }
 
 class Attributes {
@@ -84,20 +78,20 @@ class Attributes {
   List<String> movementIds;
 
   factory Attributes.fromJson(Map<String, dynamic> json) => Attributes(
-        name: json['name'],
-        description: json['description'],
-        category: json['category'],
-        scoreType: json['score_type'],
-        movementIds: List<String>.from(json['movement_ids'].map((x) => x)),
-      );
+    name: json['name'],
+    description: json['description'],
+    category: json['category'],
+    scoreType: json['score_type'],
+    movementIds: List<String>.from(json['movement_ids'].map((x) => x)),
+  );
 
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'description': description,
-        'category': category,
-        'score_type': scoreType,
-        'movement_ids': List<dynamic>.from(movementIds.map((x) => x)),
-      };
+    'name': name,
+    'description': description,
+    'category': category,
+    'score_type': scoreType,
+    'movement_ids': List<dynamic>.from(movementIds.map((x) => x)),
+  };
 }
 
 class DatumLinks {
@@ -109,22 +103,13 @@ class DatumLinks {
 }
 
 class BenchmarksLinks {
-  BenchmarksLinks({
-    required this.self,
-    required this.next,
-  });
+  BenchmarksLinks({required this.self, required this.next});
 
   String self;
   String next;
 
   factory BenchmarksLinks.fromJson(Map<String, dynamic> json) =>
-      BenchmarksLinks(
-        self: json['self'],
-        next: json['next'],
-      );
+      BenchmarksLinks(self: json['self'], next: json['next']);
 
-  Map<String, dynamic> toJson() => {
-        'self': self,
-        'next': next,
-      };
+  Map<String, dynamic> toJson() => {'self': self, 'next': next};
 }

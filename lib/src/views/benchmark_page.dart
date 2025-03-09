@@ -35,22 +35,24 @@ class _BenchmarkPageState extends State<BenchmarkPage> {
     final service = context.watch<BenchmarkNotifier>();
 
     return Scaffold(
-        body: SafeArea(
-      child: Column(
-        children: [
-          Align(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
-              child: InkWell(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Align(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+                child: InkWell(
                   child: const Icon(FontAwesomeIcons.arrowLeft),
-                  onTap: () => Navigator.pop(context)),
+                  onTap: () => Navigator.pop(context),
+                ),
+              ),
+              alignment: Alignment.centerLeft,
             ),
-            alignment: Alignment.centerLeft,
-          ),
-          _benchmarkCard(service.benchmarks),
-        ],
+            _benchmarkCard(service.benchmarks),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   Widget _benchmarkCard(List<BenchmarksDatum> data) {
@@ -71,10 +73,11 @@ class _BenchmarkPageState extends State<BenchmarkPage> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Center(
-                        child: Text(
-                      data[index].attributes.name,
-                      style: fontStyleCardTitle,
-                    )),
+                      child: Text(
+                        data[index].attributes.name,
+                        style: fontStyleCardTitle,
+                      ),
+                    ),
                     verticalMarginSmall(),
                     Text(
                       data[index].attributes.description,
@@ -103,8 +106,10 @@ class _BenchmarkPageState extends State<BenchmarkPage> {
 
     if (currentScroll >= maxScroll && !_scrollController.position.outOfRange) {
       if (Provider.of<BenchmarkNotifier>(context, listen: false).hasNextPage) {
-        await Provider.of<BenchmarkNotifier>(context, listen: false)
-            .getNextBenchmarkByCategoryAsync();
+        await Provider.of<BenchmarkNotifier>(
+          context,
+          listen: false,
+        ).getNextBenchmarkByCategoryAsync();
       }
     }
   }

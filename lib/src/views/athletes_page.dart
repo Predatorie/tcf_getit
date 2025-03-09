@@ -41,8 +41,10 @@ class _AthletesPageState extends State<AthletesPage> {
 
     if (currentScroll >= maxScroll && !_scrollController.position.outOfRange) {
       if (Provider.of<AthletesNotifier>(context, listen: false).hasNextPage) {
-        await Provider.of<AthletesNotifier>(context, listen: false)
-            .getNextAthletesAsync();
+        await Provider.of<AthletesNotifier>(
+          context,
+          listen: false,
+        ).getNextAthletesAsync();
       }
     }
   }
@@ -52,46 +54,43 @@ class _AthletesPageState extends State<AthletesPage> {
     final service = context.watch<AthletesNotifier>();
 
     return Scaffold(
-        body: SafeArea(
-      child: Column(
-        children: [
-          Align(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
-              child: InkWell(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Align(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+                child: InkWell(
                   child: const Icon(FontAwesomeIcons.arrowLeft),
-                  onTap: () => Navigator.pop(context)),
+                  onTap: () => Navigator.pop(context),
+                ),
+              ),
+              alignment: Alignment.centerLeft,
             ),
-            alignment: Alignment.centerLeft,
-          ),
-          Expanded(
-            child: GridView(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              controller: _scrollController,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            Expanded(
+              child: GridView(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                controller: _scrollController,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: .9,
                   crossAxisSpacing: 2,
-                  mainAxisSpacing: 2),
-              children: [
-                ...service.athletes
-                    .map(
-                      (athlete) => _athleteCard(athlete),
-                    )
-                    .toList(),
-                service.isBusy
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : const SizedBox(
-                        height: 1,
-                      )
-              ],
+                  mainAxisSpacing: 2,
+                ),
+                children: [
+                  ...service.athletes
+                      .map((athlete) => _athleteCard(athlete))
+                      .toList(),
+                  service.isBusy
+                      ? const Center(child: CircularProgressIndicator())
+                      : const SizedBox(height: 1),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   Widget _athleteCard(AthleteAttributes data) {
@@ -99,47 +98,46 @@ class _AthletesPageState extends State<AthletesPage> {
 
     return Center(
       child: Card(
-          key: Key(data.email),
-          borderOnForeground: false,
-          shadowColor: tollandCrossFitBlue,
-          margin: const EdgeInsets.only(top: 20),
-          semanticContainer: false,
-          elevation: 4,
-          child: Column(
-            children: [
-              isEmpty
-                  ? Image.asset(
-                      'assets/images/tcf_logo_small.png',
-                      fit: BoxFit.fitHeight,
-                      width: 128,
-                      height: 128,
-                    )
-                  : CachedNetworkImage(
-                      key: Key(data.email),
-                      imageUrl: data.profileImageUrl,
-                      width: 128,
-                      height: 128,
-                      fit: BoxFit.fitHeight,
-                      placeholder: (context, url) => Image.asset(
-                        'assets/images/tcf_logo_small.png',
-                      ),
-                      errorWidget: (context, url, error) => Image.asset(
-                        'assets/images/tcf_logo_small.png',
-                      ),
-                    ),
-              const SizedBox(
-                height: 20,
+        key: Key(data.email),
+        borderOnForeground: false,
+        shadowColor: tollandCrossFitBlue,
+        margin: const EdgeInsets.only(top: 20),
+        semanticContainer: false,
+        elevation: 4,
+        child: Column(
+          children: [
+            isEmpty
+                ? Image.asset(
+                  'assets/images/tcf_logo_small.png',
+                  fit: BoxFit.fitHeight,
+                  width: 128,
+                  height: 128,
+                )
+                : CachedNetworkImage(
+                  key: Key(data.email),
+                  imageUrl: data.profileImageUrl,
+                  width: 128,
+                  height: 128,
+                  fit: BoxFit.fitHeight,
+                  placeholder:
+                      (context, url) =>
+                          Image.asset('assets/images/tcf_logo_small.png'),
+                  errorWidget:
+                      (context, url, error) =>
+                          Image.asset('assets/images/tcf_logo_small.png'),
+                ),
+            const SizedBox(height: 20),
+            Text(
+              data.firstName.toUpperCase(),
+              style: const TextStyle(
+                color: tollandCrossFitBlue,
+                fontWeight: FontWeight.bold,
               ),
-              Text(
-                data.firstName.toUpperCase(),
-                style: const TextStyle(
-                    color: tollandCrossFitBlue, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-            ],
-          )),
+            ),
+            const SizedBox(height: 10),
+          ],
+        ),
+      ),
     );
   }
 }

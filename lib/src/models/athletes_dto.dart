@@ -8,27 +8,20 @@ AthletesDto athletesFromJson(String str) =>
     AthletesDto.fromJson(json.decode(str));
 
 class AthletesDto {
-  AthletesDto({
-    required this.data,
-    required this.links,
-  });
+  AthletesDto({required this.data, required this.links});
 
   AthletesDto copyWith({
     required List<Datum> data,
     required AthletesLinks links,
-  }) =>
-      AthletesDto(
-        data: data,
-        links: links,
-      );
+  }) => AthletesDto(data: data, links: links);
 
   List<Datum> data;
   AthletesLinks links;
 
   factory AthletesDto.fromJson(Map<String, dynamic> json) => AthletesDto(
-        data: List<Datum>.from(json['data'].map((x) => Datum.fromJson(x))),
-        links: AthletesLinks.fromJson(json['links']),
-      );
+    data: List<Datum>.from(json['data'].map((x) => Datum.fromJson(x))),
+    links: AthletesLinks.fromJson(json['links']),
+  );
 }
 
 class Datum {
@@ -45,11 +38,11 @@ class Datum {
   DatumLinks links;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        type: json['type'],
-        id: json['id'],
-        attributes: AthleteAttributes.fromJson(json['attributes']),
-        links: DatumLinks.fromJson(json['links']),
-      );
+    type: json['type'],
+    id: json['id'],
+    attributes: AthleteAttributes.fromJson(json['attributes']),
+    links: DatumLinks.fromJson(json['links']),
+  );
 }
 
 class AthleteAttributes {
@@ -84,31 +77,23 @@ class AthleteAttributes {
 }
 
 class DatumLinks {
-  DatumLinks({
-    required this.uiAthlete,
-    required this.removeFromAffiliate,
-  });
+  DatumLinks({required this.uiAthlete, required this.removeFromAffiliate});
 
   String uiAthlete;
   String removeFromAffiliate;
 
   factory DatumLinks.fromJson(Map<String, dynamic> json) => DatumLinks(
-        uiAthlete: json['ui_athlete'],
-        removeFromAffiliate: json['remove_from_affiliate'],
-      );
+    uiAthlete: json['ui_athlete'],
+    removeFromAffiliate: json['remove_from_affiliate'],
+  );
 }
 
 class AthletesLinks {
-  AthletesLinks({
-    required this.self,
-    required this.next,
-  });
+  AthletesLinks({required this.self, required this.next});
 
   String self;
   String next;
 
-  factory AthletesLinks.fromJson(Map<String, dynamic> json) => AthletesLinks(
-        self: json['self'],
-        next: json['next'],
-      );
+  factory AthletesLinks.fromJson(Map<String, dynamic> json) =>
+      AthletesLinks(self: json['self'], next: json['next']);
 }

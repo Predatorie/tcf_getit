@@ -67,7 +67,9 @@ class BenchmarkNotifier extends ChangeNotifier implements NotifierBase {
 
       if (hasNextPage) {
         final response = await sugarWod.getNextBenchmarkByCategoryAsync(
-            _category, _nextPageUrl);
+          _category,
+          _nextPageUrl,
+        );
 
         if (response != null) {
           // setup for pagination

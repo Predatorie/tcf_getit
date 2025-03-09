@@ -13,20 +13,22 @@ class WodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Consumer<WodNotifier>(builder: (context, service, child) {
-          return Column(
-            children: [
-              Align(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
-                  child: InkWell(
+        child: Consumer<WodNotifier>(
+          builder: (context, service, child) {
+            return Column(
+              children: [
+                Align(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
+                    child: InkWell(
                       child: const Icon(FontAwesomeIcons.arrowLeft),
-                      onTap: () => Navigator.pop(context)),
+                      onTap: () => Navigator.pop(context),
+                    ),
+                  ),
+                  alignment: Alignment.centerLeft,
                 ),
-                alignment: Alignment.centerLeft,
-              ),
-              Expanded(
-                child: ListView.builder(
+                Expanded(
+                  child: ListView.builder(
                     padding: const EdgeInsets.all(8),
                     itemCount: service.wod.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -42,8 +44,12 @@ class WodPage extends StatelessWidget {
                             children: [
                               Center(
                                 child: Text(
-                                  service.wod[index].attributes.track
-                                      .attributesFor.name,
+                                  service
+                                      .wod[index]
+                                      .attributes
+                                      .track
+                                      .attributesFor
+                                      .name,
                                   style: const TextStyle(fontSize: 20),
                                 ),
                               ),
@@ -61,11 +67,13 @@ class WodPage extends StatelessWidget {
                           ),
                         ),
                       );
-                    }),
-              ),
-            ],
-          );
-        }),
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

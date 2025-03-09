@@ -9,23 +9,20 @@ Box boxFromJson(String str) => Box.fromJson(json.decode(str));
 String boxToJson(Box data) => json.encode(data.toJson());
 
 class Box {
-  Box({
-    required this.data,
-    required this.links,
-  });
+  Box({required this.data, required this.links});
 
   Data data;
   Links links;
 
   factory Box.fromJson(Map<String, dynamic> json) => Box(
-        data: Data.fromJson(json['data']),
-        links: Links.fromJson(json['links']),
-      );
+    data: Data.fromJson(json['data']),
+    links: Links.fromJson(json['links']),
+  );
 
   Map<String, dynamic> toJson() => {
-        'data': data.toJson(),
-        'links': links.toJson(),
-      };
+    'data': data.toJson(),
+    'links': links.toJson(),
+  };
 }
 
 class Data {
@@ -42,18 +39,18 @@ class Data {
   dynamic links;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        type: json['type'],
-        id: json['id'],
-        attributes: Attributes.fromJson(json['attributes']),
-        links: json['links'],
-      );
+    type: json['type'],
+    id: json['id'],
+    attributes: Attributes.fromJson(json['attributes']),
+    links: json['links'],
+  );
 
   Map<String, dynamic> toJson() => {
-        'type': type,
-        'id': id,
-        'attributes': attributes.toJson(),
-        'links': links,
-      };
+    'type': type,
+    'id': id,
+    'attributes': attributes.toJson(),
+    'links': links,
+  };
 }
 
 class Attributes {
@@ -76,24 +73,24 @@ class Attributes {
   String logoUrl;
 
   factory Attributes.fromJson(Map<String, dynamic> json) => Attributes(
-        createdAt: DateTime.parse(json['created_at']),
-        name: json['name'],
-        nickname: json['nickname'],
-        street: json['street'],
-        city: json['city'],
-        stateOrProvince: json['state_or_province'],
-        logoUrl: json['logo_url'],
-      );
+    createdAt: DateTime.parse(json['created_at']),
+    name: json['name'],
+    nickname: json['nickname'],
+    street: json['street'],
+    city: json['city'],
+    stateOrProvince: json['state_or_province'],
+    logoUrl: json['logo_url'],
+  );
 
   Map<String, dynamic> toJson() => {
-        'created_at': createdAt.toIso8601String(),
-        'name': name,
-        'nickname': nickname,
-        'street': street,
-        'city': city,
-        'state_or_province': stateOrProvince,
-        'logo_url': logoUrl,
-      };
+    'created_at': createdAt.toIso8601String(),
+    'name': name,
+    'nickname': nickname,
+    'street': street,
+    'city': city,
+    'state_or_province': stateOrProvince,
+    'logo_url': logoUrl,
+  };
 }
 
 class Links {
@@ -112,18 +109,18 @@ class Links {
   String uiHome;
 
   factory Links.fromJson(Map<String, dynamic> json) => Links(
-        self: json['self'],
-        athletes: json['athletes'],
-        workouts: json['workouts'],
-        tracks: json['tracks'],
-        uiHome: json['ui_home'],
-      );
+    self: json['self'],
+    athletes: json['athletes'],
+    workouts: json['workouts'],
+    tracks: json['tracks'],
+    uiHome: json['ui_home'],
+  );
 
   Map<String, dynamic> toJson() => {
-        'self': self,
-        'athletes': athletes,
-        'workouts': workouts,
-        'tracks': tracks,
-        'ui_home': uiHome,
-      };
+    'self': self,
+    'athletes': athletes,
+    'workouts': workouts,
+    'tracks': tracks,
+    'ui_home': uiHome,
+  };
 }

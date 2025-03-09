@@ -4,13 +4,11 @@ import 'package:chopper/chopper.dart';
 
 import '../../keys/auth.dart';
 
-class HeaderInterceptor implements RequestInterceptor {
+class AuthInterceptor implements Interceptor {
   @override
-  FutureOr<Request> onRequest(Request request) async {
-    final newRequest = request.copyWith(headers: {
-      'Authorization': Keys.key,
-      'Content-Type': 'application/json'
-    });
-    return newRequest;
+  FutureOr<Response<BodyType>> intercept<BodyType>(
+    Chain<BodyType> chain,
+  ) async {
+    return chain.proceed(applyHeader(chain.request, 'Authorization', Keys.key));
   }
 }
